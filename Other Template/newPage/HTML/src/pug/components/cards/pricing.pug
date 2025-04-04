@@ -1,0 +1,18 @@
+mixin pricing-card(price, featureList, title, desc, type)
+  .card.pricing-card(class=type)
+    .title-card
+      p #{title}
+      h4.display-1
+        if price > 0
+          span $
+        | #{price > 0 ? price : 'Free'}
+    ul
+      each item in featureList
+        li #{item}
+    .btn-area
+      p.desc #{desc}
+      |
+      |
+      a.btn.button.btn-large.waves-effect(href="#" class=type === 'basic' ? 'secondary' : 'primary') Choose Plan
+      |
+      |

@@ -1,0 +1,440 @@
+$flag: '../images/flag-logo.png';
+
+@mixin flag-icon{
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  display: inline-block;
+  position: relative;
+  @include margin-right(5px);
+  top: 1px;
+  background: url($flag) no-repeat transparent;
+  background-size: 16px auto;
+  &.ar {
+    background-position: 0 3px;
+  }
+  &.zh {
+    background-position: 0 -12px
+  }
+  &.en {
+    background-position: 0 -28px
+  }
+  &.de {
+    background-position: 0 -44px
+  }
+  &.id {
+    background-position: 0 -62px
+  }
+  &.pt {
+    background-position: 0 -79px
+  }
+}
+
+@keyframes slideRight {
+  from {
+    opacity: 0;
+    transform: translateX(-100px)
+  }
+  to {
+    opacity: 1;
+    transform: none
+  }
+}
+
+.popover {
+  @include palette-background-paper;
+  width: 200px;
+}
+
+.switch-toggle {
+  margin-top: 0;
+}
+
+.header {
+  @include palette-text-primary;
+  box-shadow: none;
+  transition: all 0.3s ease;
+  position: fixed;
+  z-index: 999;
+  width: 100%;
+  top: 0;
+  left: 0;
+  .container {
+    #main-wrap & {
+      @include breakpoints-down(md) {
+        padding-left: 0
+      }
+      @include breakpoints-down(xs) {
+        padding-right: 0
+      }
+    }
+  }
+  nav {
+    transition: all 0.5s ease-out;
+    ul {
+      padding: 0
+    }
+  }
+  @include breakpoints-down(xs) {
+    z-index: 91
+  }
+  &.fixed {
+    @include bg-color-darken($palette-primary-dark, 0.3);
+    position: fixed;
+    z-index: 99;
+    padding: 4px 0;
+    .logo {
+      a {
+        color: transparent;
+        font-size: 0
+      }
+      img {
+        height: 48px;
+        width: 48px;
+        margin-bottom: 0
+      }
+    }
+    nav {
+      padding: 0 $spacing1;
+      .button {
+        padding: spacing(0.5, 2)
+      }
+    }
+    .text-btn {
+      color: $palette-common-white !important
+    }
+    ul li a, .setting .icon{
+      color: $palette-common-white !important
+    }
+    .mobile-menu .bar {
+      background-color: $palette-common-white !important;
+      &:after, &:before {
+        background-color: $palette-common-white !important;
+      }
+    }
+  }
+  &.open-drawer {
+    z-index: 1100;
+    box-shadow: none !important;
+    .logo {
+      a {
+        @include palette-text-primary
+      }
+    }
+  }
+  .button {
+    width: $spacing20;
+  }
+
+  a.btn.text-btn {
+    padding-left: $spacing1;
+    padding-right: $spacing1;
+    margin-right: $spacing2
+  }
+}
+
+.header-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 4px 0;
+  & nav {
+    align-items: center;
+    padding: $spacing2;
+    display: flex;
+    @include breakpoints-down(md) {
+      padding: spacing(2, 1)
+    }
+  }
+  .collection-header {
+    text-transform: capitalize;
+    font-size: 0.875rem;
+    @include palette-text-secondary;
+  }
+  .collection, .collection-item, .collection-header {
+    border: none !important;
+  }
+  .logo {
+    margin-right: $spacing1;
+    a {
+      margin-top: 4px;
+      font-size: 16px;
+      font-weight: $font-medium;
+      position: relative;
+      margin: spacing(0, 1);
+      text-decoration: none;
+      span {
+        @include breakpoints-down(md) {
+          display: none;
+        }
+      }
+    }
+    img {
+      transition: all 0.3s ease-out;
+      max-width: 64px;
+      height: 64px;
+      width: 64px;
+      margin: 0 auto;
+      display: block;
+      margin-bottom: $spacing1;
+      @include breakpoints-down(xs) {
+        height: 48px;
+        width: 48px;
+      }
+    }
+  }
+}
+
+.nav-logo {
+  .logo {
+    a {
+      display: block;
+      color: $palette-common-white;
+    }
+  }
+  &.invert .logo a{
+    @include palette-text-primary
+  }
+  &.mobile-menu {
+    bar {
+      @include breakpoints-down(sm) {
+        background: $palette-common-white;
+        &:after, &:before {
+          background: $palette-common-white;
+        }
+      }
+    }
+  }
+}
+
+nav.nav-menu {
+  height: auto;
+  line-height: normal;
+  a.btn {
+    color: $palette-common-white;
+    margin: spacing(0, 1);
+    position: relative;
+    font-size: 16px;
+    box-shadow: none;
+    margin-top: 4px;
+    font-weight: $font-medium;
+  }
+  &.invert {
+    ul li a {
+      transition: all 0.3s ease-out;
+      @include palette-text-primary;
+    }
+    .icon.v-icon {
+      @include palette-text-primary;
+    }
+    .text-btn {
+      @include palette-text-primary
+    }
+    .mobile-menu .bar {
+      @include palette-background-text-primary;
+      &:after, &:before {
+        @include palette-background-text-primary;
+      }
+    }
+    .setting .icon{
+      @include palette-text-secondary;
+    }
+  }
+  .scrollactive-nav {
+    li {
+      list-style: none;
+      position: relative;
+      display: inline-block;
+      display: inline-flex;
+      align-items: center;
+      flex: 0 0 auto;
+      justify-content: center;
+      @include breakpoints-up(lg) {
+        margin: spacing(0, 1)
+      }
+      &.current {
+        position: relative;
+        .btn {
+          color: $palette-secondary-light;
+          &:after {
+            background: $palette-common-white;
+            width: 20px
+          }
+        }
+        &:after {
+          width: 20px;
+          background: $palette-common-white
+        }
+      }
+      &:after {
+        content: '';
+        height: 5px;
+        position: absolute;
+        border-radius: 5px;
+        width: 0%;
+        margin: 0 auto;
+        bottom: -5px;
+        transition: all 0.2s cubic-bezier(0.42, 0.16, 0.21, 0.93)
+      }
+      &:hover {
+        transition: all 0.3s ease-out;
+        opacity: 0.5;
+        &:after {
+          width: 20px;
+          background: $palette-common-white
+        }
+      }
+    }
+    .btn  {
+      color: $palette-common-white;
+      text-transform: capitalize;
+      font-Size: 16px;
+      font-weight: $font-medium;
+      background: none !important;
+      box-shadow: none;
+      position: relative;
+      padding: 6px;
+      margin: spacing(0, 1);
+      margin-top: calc($spacing1 / 2);
+      min-width: 0;
+    }
+  }
+}
+
+.lang-menu {
+  .flag {
+    margin: 0;
+    & i {
+      margin-left: $spacing2;
+      @include flag-icon;
+    }
+  }
+  .collection-item {
+    padding: 0
+  }
+}
+
+.collection .collection-item.avatar :not(.circle-clipper) > .circle.flag {
+  width: auto;
+  height: auto;
+  overflow: visible;
+}
+
+.lang-opt {
+  display: block;
+  padding: 0 !important;
+  @include palette-text-primary;
+}
+
+.lang-list {
+  min-height: 0 !important;
+}
+
+.setting {
+  position: relative;
+  .icon {
+    font-size: 24px;
+    transition: all 0.3s ease;
+    color: $palette-common-white;
+  }
+  .active {
+    transform: rotate(30deg)
+  }
+  .menu-list {
+    text-transform: capitalize
+  }
+  .dropdown-content {
+    width: 240px !important;
+    border-radius: 12px;
+    [dir="ltr"] & {
+      right: $spacing1 !important;
+      left: auto !important
+    }
+    [dir="rtl"] & {
+      left: $spacing1 !important;
+      right: auto !important
+    }
+  }
+}
+
+.mode-menu, .lang-menu {
+  text-transform: capitalize
+}
+
+.flex-menu {
+  display: flex;
+  justify-content: flex-start;
+  label {
+    text-transform: capitalize;
+  }
+}
+
+.mobile-menu {
+  margin: spacing(0, 1);
+  height: 36px;
+  line-height: 52px;
+  .bar {
+    background-color: $palette-common-white;
+    &:after, &:before {
+      background-color: $palette-common-white;
+    }
+  }
+  &.is-active {
+    .bar {
+      background-color: $palette-common-white !important;
+      &:after, &:before {
+        background-color: $palette-common-white !important;
+      }
+    }
+  }
+}
+
+.mobile-nav {
+  @include bg-color-darken($palette-primary-dark, 0.3);
+  position: fixed;
+  z-index: 1100;
+  min-width: 300px;
+  &.menu-open {
+    ul li {
+      animation-name: slideRight;
+      animation-timing-function: ease;
+    }
+  }
+  @include breakpoints-down(xs) {
+    width: 100% !important
+  }
+  .menu {
+    padding: spacing(0, 2, 4);
+    overflow: auto;
+    top: spacing(10);
+    width: 100%;
+    position: absolute;
+    height: calc(100% - 120px);
+    ul.collection {
+      border: none;
+      margin: 0;
+      padding-bottom: $spacing5;
+      li.collection-item {
+        border: none;
+        background: none;
+        padding: 0;
+        margin: spacing(2, 3);
+        a {
+          color: $palette-common-white;
+          text-transform: capitalize;
+          font-size: 24px;
+          margin-top: 4px;
+          margin-bottom: 4px;
+          font-weight: $font-regular;
+          padding: spacing(1, 2);
+          height: auto;
+          line-height: normal;
+        }
+      }
+    }
+  }
+  .divider-sidebar {
+    background: rgba(255, 255, 255, 0.2);
+  }
+}
+

@@ -1,0 +1,55 @@
+.root
+  if youtube.use
+    #video_modal.modal.video-popup
+      .modal-content
+        |
+        |
+        h4 #{$t.saas_landing.banner_title}
+        |
+        |
+        button.btn-icon.modal-close.waves-effect
+          i.material-icons close
+        .text-center
+          #video_iframe
+
+  .decoration
+    |
+    |
+    svg.left-deco(width="1045px" height="1468px" viewBox="0 0 1045 1468" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink")
+      include svg/deco-bg-left.pug
+    |
+    |
+    svg.right-deco(width="389px" height="1468px" viewBox="0 0 389 1468" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink")
+      include svg/deco-bg-right.pug
+    |
+    |
+  .container.fixed-width-lg-up
+    .slider-wrap
+      .text
+        h3.use-text-title #{$t.saas_landing.banner_title}
+          strong &nbsp; #{$t.saas_landing.banner_titlestrong}
+        p.use-text-subtitle #{$t.saas_landing.banner_subtitle}
+        .btn-area
+          |
+          |
+          button.btn.btn-flat.play-btn.waves-effect.modal-trigger(data-target="video_modal")
+            span.icon
+              i.ion-ios-play-outline #{$t.saas_landing.banner_watchvideo}
+            | #{$t.saas_landing.banner_watchvideo}
+          |
+          |
+          a.btn.secondary.waves-effect(href=link.saas.login) #{$t.saas_landing.getstarted}
+          |
+          |
+      .illustration
+        |
+        |
+        img(src=imgAPI.saas[7] alt="illustration")
+        |
+        |
+  .deco
+    .hidden-md-down
+      .deco-inner
+        .wave.wave-one
+        .wave.wave-two
+    .wave.wave-cover

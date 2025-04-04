@@ -1,0 +1,17 @@
+mixin news-card(img, type, text)
+  .news-card
+    figure
+      |
+      |
+      img(src=img alt="thumb")/
+      |
+      |
+    .desc
+      .text
+        p.type.caption #{$t.saas_landing[type]}
+        p #{text}
+      |
+      |
+      a.btn.btn-small.btn-flat.waves-effect #{$t.saas_landing.news_readmore}
+      |
+      |

@@ -1,0 +1,52 @@
+include titles/title
+
+-
+  var faqData = [
+    {
+      q: 'How are users counted towards billing?',
+      a: 'You can add and remove users as your team changes. At the end of each monthly billing cycle, you will be billed for the following months subscription based on the exact number of Jira Software users you have.'
+    },
+    {
+      q: 'Do you offer annual subscriptions?',
+      a: 'Yes! For annual subscriptions, you will be billed for the tier that most closely matches your user count. Annual subscriptions may offer a discount depending on the number of users purchased.. '
+    },
+    {
+      q: 'What payment options do you accept?',
+      a: 'Monthly subscriptions are payable by credit card (MasterCard, Visa, or American Express), or PayPal. Annual subscriptions can be paid via credit card, bank transfer, or check.'
+    },
+    {
+      q: 'What is the difference between your cloud and self-managed options?',
+      a: 'Our cloud products provide a complete SaaS solution. Our Data Center products enable you the flexibility to deploy on an infrastructure of your choice.'
+    },
+    {
+      q: 'What happens if I exceed the Free plans user limit?',
+      a: 'When you exceed the Free plan user limit, we will automatically upgrade you to a free trial of the Standard plan. No payment information is required and you can cancel any time.'
+    }
+  ]
+
+.root
+  .container.fixed-width
+    .row.spacing6
+      .col-md-6.pa-6
+        +title-main("left")
+          strong FAQ
+        p.text.use-text-subtitle2.text-lg-start.text-center
+          | #{$t.saas_landing.faq_subtitle}
+        .hidden-sm-down
+          .illustration
+            include parallax/medium
+            |
+            |
+            img(src=assets + '/images/saas/faq.png' alt="illustration")/
+            |
+            |
+      .col-md-6.pa-6
+        .accordion
+          ul.collapsible
+            each item, index in faqData
+              li.accordion-content.paper(class=index === 0 && "active")
+                .collapsible-header.content
+                  p.heading #{item.q}
+                  i.material-icons.right.arrow expand_more
+                .collapsible-body.detail
+                  p #{item.a}

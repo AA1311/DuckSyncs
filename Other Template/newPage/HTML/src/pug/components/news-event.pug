@@ -1,0 +1,43 @@
+include cards/news.pug
+
+-
+  var newsContent = [
+    {
+      text: 'Your yearly review should be an opportunity, not a chore. Drop the politics and have real conversations.',
+      img: imgAPI.photo[1],
+      type: 'caption_news'
+    },
+    {
+      text: 'Here is how our Chief Revenue Office approaches the chicken-or-egg question every SaaS company faces.',
+      img: imgAPI.photo[2],
+      type: 'caption_news'
+    },
+    {
+      text: 'Find out which team members are dominant, influencers, conscientious, or steady.',
+      img: imgAPI.photo[3],
+      type: 'caption_event'
+    },
+    {
+      text: 'The surprising secret ingredient of transformational leadership. Turns out, investing in your own personal happiness can uplift your team, too.',
+      img: imgAPI.photo[4],
+      type: 'caption_news'
+    },
+    {
+      text: 'Why your company’s security will depend on empathy and team collaboration in 2022.',
+      img: imgAPI.photo[5],
+      type: 'caption_event'
+    },
+    {
+      text: 'Whether you dread what the future holds for workers or embrace it with open arms, there is a lot to know and discover.',
+      img: imgAPI.photo[6],
+      type: 'caption_news'
+    }
+  ]
+
+.root
+  .carousel
+    .slick-carousel#news_carousel
+      each item in newsContent
+        div
+          .item
+            +news-card(item.img, item.type, item.text)

@@ -1,0 +1,118 @@
+-
+  var testiData = [
+    {
+      text: 'Super easy to use on the go when you not near your PC. Well done for make the mobile experience an absolute breeze!',
+      avatar: imgAPI.avatar[10],
+      name: 'John Doe',
+      title: 'Chief Digital Officer',
+      logo: '/images/logos/agency.png'
+    },
+    {
+      text: 'The productivity level increases to a great extent with this Mobile Application. Being a PM, having a way to track everything on my mobile phone just makes you even more mobile.',
+      avatar: imgAPI.avatar[1],
+      name: 'Jean Doe',
+      title: 'Chief Digital Officer',
+      logo: '/images/logos/architect.png'
+    },
+    {
+      text: 'User friendly interface. Able to add screenshots from different system, networks and workstation easily through this app via the camera function.',
+      avatar: imgAPI.avatar[2],
+      name: 'Jena Doe',
+      title: 'Graphic Designer',
+      logo: '/images/logos/cloud.png'
+    },
+    {
+      text: 'Way better than the web app. smoother, faster - I wish I had this on my desktop.',
+      avatar: imgAPI.avatar[3],
+      name: 'Jovelin Doe',
+      title: 'Senior Graphic Designer',
+      logo: '/images/logos/starter.png'
+    },
+    {
+      text: 'I have better overview of what happens with Project or my tasks in Android app then in Web desktop app. Please send the UI designer from this project to Web team. Cheers',
+      avatar: imgAPI.avatar[4],
+      name: 'Jihan Doe',
+      title: 'CEO Software House',
+      logo: '/images/logos/coin.png'
+    },
+    {
+      text: 'This app is perfect for what we are doing in our organization. This app also adds to the functionality and how it will help our team with our customers.',
+      avatar: imgAPI.avatar[6],
+      name: 'Jovelin Doe',
+      title: 'Senior Graphic Designer',
+      logo: '/images/logos/fashion.png'
+    },
+    {
+      text: 'Great tool for project management and buck tracking. Started using just a while ago and very impressed with the functions and features of this tool.',
+      avatar: imgAPI.avatar[7],
+      name: 'John Doe',
+      title: 'Senior Graphic Designer',
+      logo: '/images/logos/mobile.png'
+    },
+    {
+      text: 'I know a lot of people hate this product... I also used to... After trying a bunch of simpler solutions I always find myself coming back to it.',
+      avatar: imgAPI.avatar[10],
+      name: 'John Doe',
+      title: 'Chief Digital Officer',
+      logo: '/images/logos/profile.png'
+    },
+    {
+      text: 'Great app. Thank you! I would not expect it to have so many features from the desktop version, but surprisingly it does. And UX and UI are are both very nice.',
+      avatar: imgAPI.avatar[1],
+      name: 'Jean Doe',
+      title: 'Chief Digital Officer',
+      logo: '/images/logos/saas.png'
+    }
+  ]
+
+.root
+  .container.fixed-width-lg-up
+    .row.spacing6
+      .col-md-7.px-6
+        .slider-wrap
+          .hidden-sm-down
+            .decoration
+              |
+              |
+              svg(width='900px', height='618px', viewbox='0 0 900 618', version='1.1')
+                defs
+                  lineargradient#linearGradient-1(x1='78.2441494%', y1='65.8737759%', x2='10.5892887%', y2='33.8596367%')
+                    stop(stop-color='#6A1B9A', offset='0%')
+                    stop(stop-color='#9C27B0', offset='100%')
+                g(stroke='none', stroke-width='0', fill='none', fill-rule='evenodd')
+                  path(d='M442.972909,617.331576 C569.290851,617.331576 618.618612,525.937324 804.142458,549.304771 C989.666303,572.672218 872.7227,109.743835 732.652282,54.307977 C592.581863,-1.12788075 538.308155,61.549598 304.148084,8.36113994 C69.9880137,-44.8273182 0,167.6782 0,308.489881 C0,450.379879 177.014996,617.331576 442.972909,617.331576 Z', fill='url(#linearGradient-1)')
+              |
+              |
+          h3.testi-title.use-text-title2.text-center.text-lg-start #{$t.saas_landing.testi_title}
+            br
+            strong #{$t.saas_landing.testi_titlestrong}
+          i.material-icons.icon format_quote
+          .carousel
+            .slick-carousel#testimonial_carousel
+              each item in testiData
+                .item
+                  .inner
+                    .profile
+                      .avatar.avatar-img
+                        |
+                        |
+                        img(src=item.avatar alt=item.name)/
+                        |
+                        |
+                      h6.name #{item.name}
+                        span #{item.title}
+                    p.use-text-paragraph #{item.text}
+      .col-md-5.hidden-sm-down.px-6
+        #logo_nav.logo-wrap
+          each item, index in testiData
+            .figure-btn
+              |
+              |
+              a.waves-effect(class=index===0 && "active" data-index=index)
+                |
+                |
+                img(src=assets + item.logo alt="logo" + index)/
+                |
+                |
+              |
+              |
