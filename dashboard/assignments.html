@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+   <html lang="en">
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+      <!--=============== REMIXICONS ===============-->
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.2.0/remixicon.css">
+
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+      <!--=============== CSS ===============-->
+      <link rel="stylesheet" href="css/styles.css">
+
+      <title>DuckSyncs</title>
+   </head>
+   <body>
+      <!--=============== HEADER ===============-->
+      <header class="header" id="header">
+         <div class="header__container">
+            <a href="../calendar/calendar.html" class="header__logo">
+               <i class="ri-cloud-fill"></i>
+               <span></span>
+            </a>
+            
+            <button class="header__toggle" id="header-toggle">
+               <i class="ri-menu-line"></i>
+            </button>
+         </div>
+      </header>
+
+      <!--=============== SIDEBAR ===============-->
+      <nav class="sidebar" id="sidebar">
+         <div class="sidebar__container">
+            <div class="sidebar__user">
+               <div class="sidebar__img">
+                  <img src="" id="userPhoto" alt="User Photo">
+               </div>
+   
+               <div class="sidebar__info">
+                  <h3 id="user-name"></h3>
+                  <span id="user-email"></span>
+               </div>
+            </div>
+
+            <div class="sidebar__content">
+               <div>
+                  <h3 class="sidebar__title">MANAGE</h3>
+
+                  <div class="sidebar__list">
+
+                     <a href="../calendar/calendar.html" class="sidebar__link">
+                        <i class="ri-calendar-fill"></i>
+                        <span>Calendar</span>
+                     </a>
+
+                     <a href="./assignments.html" class="sidebar__link">
+                        <i class="ri-arrow-up-down-line"></i>
+                        <span>Assignments</span>
+                     </a>
+
+                  </div>
+               </div>
+
+               <div>
+                  <h3 class="sidebar__title">SETTINGS</h3>
+
+                  <div class="sidebar__list">
+                     <a href="#" class="sidebar__link">
+                        <i class="ri-settings-3-fill"></i>
+                        <span>Settings</span>
+                     </a>
+                  </div>
+               </div>
+            </div>
+
+            <div class="sidebar__actions">
+               <!-- <button>
+                  <i class="ri-moon-clear-fill sidebar__link sidebar__theme" id="theme-button">
+                     <span>Theme</span>
+                  </i>
+               </button> -->
+
+               <button class="sidebar__link" id ="logout-button">
+                  <i class="ri-logout-box-r-fill"></i>
+                  <span>Log Out</span>
+               </button>
+            </div>
+         </div>
+      </nav>
+
+      <!--=============== MAIN ===============-->
+      <main class="main-dashboard container" id="main">
+         <h1>Assignments</h1>
+         <!--=============== Assignments ===============-->
+        <div class="table-container">
+         <table style=" width: 100%;" class="styled-table">
+             <thead>
+                 <tr>
+                     <th ></th>
+                     <th>Course</th>
+                     <th>Task Name</th>
+                     <th>Due Date</th>
+                     <th>Task Type</th>
+                 </tr>
+             </thead>
+             <tbody>
+                 <tr>
+                  <td class="checkbox-column"><input type="checkbox" id="task4"></td>
+                     <td>Math 101</td>
+                     <td>Assignment 1</td>
+                     <td>2025-04-07</td>
+                     <td>Assignment</td>
+                 </tr>
+                 <tr>
+                  <td class="checkbox-column"><input type="checkbox" id="task4"></td>
+                     <td>CS 201</td>
+                     <td>Quiz 2</td>
+                     <td>2025-04-06</td>
+                     <td>Quiz</td>
+                 </tr>
+                 <tr>
+                  <td class="checkbox-column"><input type="checkbox" id="task4"></td>
+                     <td>Physics 102</td>
+                     <td>Final Exam</td>
+                     <td>2025-04-08</td>
+                     <td>Exam</td>
+                 </tr>
+             </tbody>
+         </table>
+     </div>
+
+ </main>
+     
+      <!--=============== MAIN JS ===============-->
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+
+
+<script src="js/main.js"></script>
+
+<script src="https://www.gstatic.com/firebasejs/9.6.11/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.11/firebase-auth-compat.js"></script>
+
+<script>
+   const firebaseConfig = {
+       apiKey: "AIzaSyCGByO7UTykWwangv1jWWcguD7rqOTANb4",
+       authDomain: "login-ccfc8.firebaseapp.com",
+       projectId: "login-ccfc8",
+       storageBucket: "login-ccfc8.firebasestorage.app",
+       messagingSenderId: "916099550852",
+       appId: "1:916099550852:web:2f06cde9d6e1f842943cd1",
+       measurementId: "G-JZ8JY11W4Z"
+   };
+
+   firebase.initializeApp(firebaseConfig);
+   const auth = firebase.auth();
+
+   // On page load, check if user is authenticated
+   auth.onAuthStateChanged(user => {
+       if (user) {
+           // If logged in, use data from localStorage
+           const userName = localStorage.getItem('userName');
+           const userEmail = localStorage.getItem('userEmail');
+           const userPhoto = localStorage.getItem('userPhoto') || '../images/profileDefault.jpg';
+
+
+           // Display user info
+           document.getElementById('user-name').textContent = userName;
+           document.getElementById('user-email').textContent = userEmail;
+           document.getElementById('userPhoto').src = userPhoto;
+           
+
+       } else {
+           // If not signed in, redirect to login page
+           window.location.href = "../index.html";  // Redirect to login page
+       }
+   });
+
+   // Logout functionality
+   document.getElementById('logout-button').addEventListener('click', function (e) {
+       e.preventDefault();
+       auth.signOut().then(() => {
+           // Redirect back to login page after logout
+           localStorage.removeItem('userName');
+           localStorage.removeItem('userEmail');
+           window.location.href = "../index.html";  // Redirect to login page
+       });
+   });
+</script>
+
+
+
+   </body>
+</html>

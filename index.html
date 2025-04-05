@@ -567,6 +567,13 @@
     auth.signInWithPopup(provider)
       .then((result) => {
         const user = result.user;
+        console.log(user);
+
+        //console.log('result', result.user.email);
+        localStorage.setItem('userName', user.displayName);
+        localStorage.setItem('userEmail', user.email);
+        localStorage.setItem('userPhoto', user.photoURL);
+        window.location.href = "calendar/calendar.html";
         showUserInfo(user);
       })
       .catch((error) => {
@@ -584,10 +591,16 @@
 
   // Show user info in navbar
   function showUserInfo(user) {
+   console.log('email',user.email);
+
     document.getElementById('login-item').style.display = 'none';
     document.getElementById('user-info').style.display = 'list-item';
     document.getElementById('logout-item').style.display = 'list-item';
     document.getElementById('user-name').textContent = `Hi, ${user.displayName.split(" ")[0]}`;
+    document.getElementById('user-name').textContent = user.displayName;
+    document.getElementById('user-email').textContent = user.email;
+    document.getElementById('userPhoto').src = user.photoURL;
+
   }
 
   // Reset navbar after sign out
