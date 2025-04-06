@@ -648,6 +648,8 @@
 
 <script src="https://www.gstatic.com/firebasejs/9.6.11/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.6.11/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.11/firebase-firestore-compat.js"></script>
+
 
 <script>
    const firebaseConfig = {
@@ -664,7 +666,7 @@
    const auth = firebase.auth();
 
    //Access the Firebase Firestore
-  //  const db = firebase.firestore(); 
+   const db = firebase.firestore();  // Get Firestore instance
 
    // On page load, check if user is authenticated
    auth.onAuthStateChanged(user => {
@@ -680,7 +682,8 @@
            document.getElementById('user-email').textContent = userEmail;
            document.getElementById('userPhoto').src = userPhoto;
 
-          //  loadCalendarEvents(user.uid);
+          // Load calendar events from Firestore
+          loadCalendarEvents(user.uid);
 
        } else {
            // If not signed in, redirect to login page
@@ -698,6 +701,24 @@
            window.location.href = "../index.html";  // Redirect to login page
        });
    });
+
+
+   // Function to load events from Firestore
+   function loadCalendarEvents(uid) {
+       db.collection('users').doc(uid).collection('events').onSnapshot((snapshot) => {
+           const events = [];
+           snapshot.forEach(doc => {
+               events.push({ id: doc.id, ...doc.data() });
+           });
+           // Dispatch event to update the calendar
+           document.dispatchEvent(new CustomEvent("events-loaded", {
+               detail: { events },
+               bubbles: true
+           }));
+       }, (error) => {
+           console.error("Error loading events:", error);
+       });
+   }
 
 </script>
 </body>
