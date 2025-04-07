@@ -1,31 +1,51 @@
 import { initMonthCalendar } from "./month-calendar.js";
 import { initWeekCalendar } from "./week-calendar.js";
-import { currentDeviceType } from "./responsive.js";
 import { getUrlDate, getUrlView } from "./url.js";
+import { currentDeviceType } from "./responsive.js";
 
-export function initCalendar(eventStore) {
+export async function initCalendar(eventStore) {
   const calendarElement = document.querySelector("[data-calendar]");
+  if (!calendarElement) {
+    console.error("Calendar element not found!");
+    return;
+  }
 
-  let selectedView = getUrlView();
-  let selectedDate = getUrlDate();
+  console.log("Calendar element found, initializing...");
+
+  let selectedView = getUrlView() || "month";
+  let selectedDate = getUrlDate() || new Date();
   let deviceType = currentDeviceType();
+  let isRendering = false;
 
-  function refreshCalendar() {
-    const calendarScrollableElement = calendarElement.querySelector("[data-calendar-scrollable]");
+  console.log("Initial view:", selectedView, "date:", selectedDate);
 
-    const scrollTop = calendarScrollableElement === null ? 0 : calendarScrollableElement.scrollTop;
-
-    calendarElement.replaceChildren();
-
-    if (selectedView === "month") {
-      initMonthCalendar(calendarElement, selectedDate, eventStore);
-    } else if (selectedView === "week") {
-      initWeekCalendar(calendarElement, selectedDate, eventStore, false, deviceType);
-    } else {
-      initWeekCalendar(calendarElement, selectedDate, eventStore, true, deviceType);
+  async function refreshCalendar() {
+    if (isRendering) {
+      console.log("Already rendering, skipping...");
+      return;
     }
+    isRendering = true;
 
-    calendarElement.querySelector("[data-calendar-scrollable]").scrollTo({ top: scrollTop });
+    console.log("Refreshing calendar with view:", selectedView);
+    calendarElement.innerHTML = "";
+
+    try {
+      if (selectedView === "month") {
+        console.log("Rendering month view...");
+        await initMonthCalendar(calendarElement, selectedDate, eventStore);
+      } else if (selectedView === "week") {
+        console.log("Rendering week view...");
+        await initWeekCalendar(calendarElement, selectedDate, eventStore, false, deviceType);
+      } else {
+        console.log("Rendering default week view...");
+        await initWeekCalendar(calendarElement, selectedDate, eventStore, true, deviceType);
+      }
+      console.log("Calendar refresh complete.");
+    } catch (error) {
+      console.error("Error rendering calendar:", error);
+    } finally {
+      isRendering = false;
+    }
   }
 
   document.addEventListener("view-change", (event) => {
@@ -44,8 +64,14 @@ export function initCalendar(eventStore) {
   });
 
   document.addEventListener("events-change", () => {
+    console.log("Events changed, refreshing...");
     refreshCalendar();
   });
 
-  refreshCalendar();
+  document.addEventListener("events-loaded", (e) => {
+    console.log("Events loaded from Firestore:", e.detail.events);
+    refreshCalendar();
+  });
+
+  await refreshCalendar(); // Initial render
 }

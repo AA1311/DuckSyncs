@@ -104,6 +104,12 @@ export function adjustDynamicEventMaxLines(dynamicEventElement) {
   dynamicEventElement.style.setProperty("--event-title-max-lines", maxTitleLines);
 }
 
+// export function generateEventId() {
+//   return Date.now();
+// }
+
 export function generateEventId() {
-  return Date.now();
+  // No longer needed; Firestore generates IDs
+  console.warn('generateEventId called; relying on Firestore ID instead');
+  return null; // Firestore will assign the ID
 }
