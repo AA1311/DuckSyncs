@@ -651,7 +651,7 @@
 <script src="https://www.gstatic.com/firebasejs/9.6.11/firebase-firestore-compat.js"></script>
 
 
-<script>
+<!-- <script>
    const firebaseConfig = {
        apiKey: "AIzaSyCGByO7UTykWwangv1jWWcguD7rqOTANb4",
        authDomain: "login-ccfc8.firebaseapp.com",
@@ -720,6 +720,98 @@
        });
    }
 
+</script> -->
+
+<script>
+  const firebaseConfig = {
+    apiKey: "AIzaSyCGByO7UTykWwangv1jWWcguD7rqOTANb4",
+    authDomain: "login-ccfc8.firebaseapp.com",
+    projectId: "login-ccfc8",
+    storageBucket: "login-ccfc8.firebasestorage.app",
+    messagingSenderId: "916099550852",
+    appId: "1:916099550852:web:2f06cde9d6e1f842943cd1",
+    measurementId: "G-JZ8JY11W4Z",
+  };
+
+  firebase.initializeApp(firebaseConfig);
+  const auth = firebase.auth();
+  const db = firebase.firestore();
+
+  console.log("Firebase initialized:", firebase.apps.length > 0);
+
+  auth.onAuthStateChanged((user) => {
+    if (user) {
+      console.log("User logged in:", { uid: user.uid, email: user.email });
+
+      const userRef = db.collection("users").doc(user.uid);
+      userRef.get().then((doc) => {
+        if (!doc.exists) {
+          console.log("Creating user document for UID:", user.uid);
+          userRef
+            .set({
+              name: user.displayName || "Unknown",
+              email: user.email,
+              photoURL: user.photoURL || "../images/profileDefault.jpg",
+              createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+            })
+            .then(() => console.log("User document created:", user.uid))
+            .catch((error) => console.error("Error creating user document:", error));
+        } else {
+          console.log("User document already exists:", doc.data());
+        }
+      }).catch((error) => console.error("Error checking user document:", error));
+
+      localStorage.setItem("userName", user.displayName || "Unknown");
+      localStorage.setItem("userEmail", user.email);
+      localStorage.setItem("userPhoto", user.photoURL || "../images/profileDefault.jpg");
+      document.getElementById("user-name").textContent = user.displayName || "Unknown";
+      document.getElementById("user-email").textContent = user.email;
+      document.getElementById("userPhoto").src = user.photoURL || "../images/profileDefault.jpg";
+
+      loadCalendarEvents(user.uid);
+    } else {
+      console.log("No user authenticated, redirecting...");
+      window.location.href = "../index.html";
+    }
+  });
+
+  document.getElementById("logout-button").addEventListener("click", (e) => {
+    e.preventDefault();
+    auth.signOut().then(() => {
+      localStorage.clear();
+      window.location.href = "../index.html";
+    }).catch((error) => console.error("Error signing out:", error));
+  });
+
+  function loadCalendarEvents(uid) {
+    console.log("Setting up Firestore listener for UID:", uid);
+    db.collection("users")
+      .doc(uid)
+      .collection("events")
+      .onSnapshot(
+        (snapshot) => {
+          const events = [];
+          snapshot.forEach((doc) => {
+            const eventData = doc.data();
+            events.push({
+              id: doc.id,
+              ...eventData,
+              date: new Date(eventData.date),
+            });
+          });
+          console.log("Events loaded from Firestore for UID", uid, ":", events);
+          document.dispatchEvent(
+            new CustomEvent("events-loaded", {
+              detail: { events },
+              bubbles: true,
+            })
+          );
+        },
+        (error) => {
+          console.error("Error loading events for UID", uid, ":", error);
+        }
+      );
+  }
 </script>
 </body>
 

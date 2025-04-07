@@ -76,9 +76,30 @@ function fillFormWithEvent(formElement, event) {
   colorInputElement.checked = true;
 }
 
+// function formIntoEvent(formElement) {
+//   const formData = new FormData(formElement);
+//   const id = formData.get("id");
+//   const title = formData.get("title");
+//   const date = formData.get("date");
+//   const startTime = formData.get("start-time");
+//   const endTime = formData.get("end-time");
+//   const color = formData.get("color");
+
+//   const event = {
+//     id: id ? Number.parseInt(id, 10) : generateEventId(),
+//     title,
+//     date: new Date(date),
+//     startTime: Number.parseInt(startTime, 10),
+//     endTime: Number.parseInt(endTime, 10),
+//     color
+//   };
+
+//   return event;
+// }
+
 function formIntoEvent(formElement) {
   const formData = new FormData(formElement);
-  const id = formData.get("id");
+  const id = formData.get("id") || null; // Use Firestore ID if present, otherwise null
   const title = formData.get("title");
   const date = formData.get("date");
   const startTime = formData.get("start-time");
@@ -86,7 +107,7 @@ function formIntoEvent(formElement) {
   const color = formData.get("color");
 
   const event = {
-    id: id ? Number.parseInt(id, 10) : generateEventId(),
+    id: id, // Null for new events; Firestore will assign
     title,
     date: new Date(date),
     startTime: Number.parseInt(startTime, 10),
