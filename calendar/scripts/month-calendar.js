@@ -2,7 +2,7 @@ import { generateMonthCalendarDays, today, isTheSameDay } from "./date.js";
 import { isEventAllDay, eventStartsBefore } from "./event.js";
 import { initEventList } from "./event-list.js";
 
-const calendarTemplateElemenent = document.querySelector("[data-template='month-calendar']");
+const calendarTemplateElement = document.querySelector("[data-template='month-calendar']");
 const calendarDayTemplateElement = document.querySelector("[data-template='month-calendar-day']");
 
 const calendarWeekClasses = {
@@ -11,22 +11,36 @@ const calendarWeekClasses = {
   6: "six-week"
 };
 
-export function initMonthCalendar(parent, selectedDate, eventStore) {
-  const calendarContent = calendarTemplateElemenent.content.cloneNode(true);
+export async function initMonthCalendar(parent, selectedDate, eventStore) {
+  if (!calendarTemplateElement || !calendarDayTemplateElement) {
+    console.error("Calendar templates not found!", { calendarTemplateElement, calendarDayTemplateElement });
+    return;
+  }
+
+  const calendarContent = calendarTemplateElement.content.cloneNode(true);
   const calendarElement = calendarContent.querySelector("[data-month-calendar]");
   const calendarDayListElement = calendarElement.querySelector("[data-month-calendar-day-list]");
 
+  if (!calendarElement || !calendarDayListElement) {
+    console.error("Calendar elements not found in cloned content!", { calendarElement, calendarDayListElement });
+    return;
+  }
+
   const calendarDays = generateMonthCalendarDays(selectedDate);
-  const calendarWeeks = calendarDays / 7;
+  const calendarWeeks = calendarDays.length / 7;
 
   const calendarWeekClass = calendarWeekClasses[calendarWeeks];
   calendarElement.classList.add(calendarWeekClass);
 
   for (const calendarDay of calendarDays) {
-    const events = eventStore.getEventsByDate(calendarDay);
-    sortCalendarDayEvents(events);
-
-    initCalendarDay(calendarDayListElement, calendarDay, events);
+    try {
+      const events = await eventStore.getEventsByDate(calendarDay);
+      console.log("Events for", calendarDay.toDateString(), ":", events);
+      sortCalendarDayEvents(events);
+      initCalendarDay(calendarDayListElement, calendarDay, events);
+    } catch (error) {
+      console.error("Error fetching events for", calendarDay.toDateString(), ":", error);
+    }
   }
 
   parent.appendChild(calendarElement);
@@ -34,58 +48,48 @@ export function initMonthCalendar(parent, selectedDate, eventStore) {
 
 function initCalendarDay(parent, calendarDay, events) {
   const calendarDayContent = calendarDayTemplateElement.content.cloneNode(true);
-  const calendarDayElemenent = calendarDayContent.querySelector("[data-month-calendar-day]");
-  const calendarDayLabelElemenent = calendarDayContent.querySelector("[data-month-calendar-day-label]");
-  const calendarEventListWrapper = calendarDayElemenent.querySelector("[data-month-calendar-event-list-wrapper]");
+  const calendarDayElement = calendarDayContent.querySelector("[data-month-calendar-day]");
+  const calendarDayLabelElement = calendarDayContent.querySelector("[data-month-calendar-day-label]");
+  const calendarEventListWrapper = calendarDayElement.querySelector("[data-month-calendar-event-list-wrapper]");
 
   if (isTheSameDay(today(), calendarDay)) {
-    calendarDayElemenent.classList.add("month-calendar__day--highlight");
+    calendarDayElement.classList.add("month-calendar__day--highlight");
   }
 
-  calendarDayLabelElemenent.textContent = calendarDay.getDate();
+  calendarDayLabelElement.textContent = calendarDay.getDate();
 
-  calendarDayLabelElemenent.addEventListener("click", () => {
+  calendarDayLabelElement.addEventListener("click", () => {
     document.dispatchEvent(new CustomEvent("date-change", {
-      detail: {
-        date: calendarDay
-      },
+      detail: { date: calendarDay },
       bubbles: true
     }));
-
     document.dispatchEvent(new CustomEvent("view-change", {
-      detail: {
-        view: 'day'
-      },
+      detail: { view: "day" },
       bubbles: true
     }));
   });
 
   calendarEventListWrapper.addEventListener("click", () => {
+    console.log("Triggering event-create-request for", calendarDay); // Add this
     document.dispatchEvent(new CustomEvent("event-create-request", {
-      detail: {
-        date: calendarDay,
-        startTime: 600,
-        endTime: 960
-      },
+      detail: { date: calendarDay, startTime: 600, endTime: 960 },
       bubbles: true
     }));
   });
 
-  initEventList(calendarDayElemenent, events);
+  initEventList(calendarDayElement, events);
 
-  parent.appendChild(calendarDayElemenent);
+  parent.appendChild(calendarDayElement);
 }
 
 function sortCalendarDayEvents(events) {
+  if (!Array.isArray(events)) {
+    console.error("Events is not an array:", events);
+    return [];
+  }
   events.sort((eventA, eventB) => {
-    if (isEventAllDay(eventA)) {
-      return -1;
-    }
-
-    if (isEventAllDay(eventB)) {
-      return 1;
-    }
-
+    if (isEventAllDay(eventA)) return -1;
+    if (isEventAllDay(eventB)) return 1;
     return eventStartsBefore(eventA, eventB) ? -1 : 1;
   });
 }
