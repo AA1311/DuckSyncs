@@ -37,6 +37,7 @@
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="../dashboard/scss/styles.scss">
+    <link rel="stylesheet" href="./styles/copilot.css" />
 </head>
 
 <body>
@@ -721,6 +722,27 @@
    }
 
 </script>
-</body>
 
+<!-- ✅ Copilot DOM elements go here -->
+<!-- Floating Copilot Chat Icon -->
+<div id="copilot-icon" onclick="toggleCopilot()">💬</div>
+
+<!-- Copilot Chat Box -->
+<div id="copilot-container" class="hidden">
+  <div id="copilot-header">🤖 Calendar Copilot</div>
+  <div id="copilot-messages"></div>
+  <div id="copilot-input-area">
+    <input type="text" id="copilot-input" placeholder="Ask about your calendar..." />
+    <button onclick="sendToCopilot()">➤</button>
+  </div>
+</div>
+
+<!-- ✅ Now your module script can safely bind to the DOM above -->
+<script type="module">
+  import { toggleCopilot, sendToCopilot } from './scripts/copilot.js';
+  window.toggleCopilot = toggleCopilot;
+  window.sendToCopilot = sendToCopilot;
+</script>
+
+</body>
 </html>
