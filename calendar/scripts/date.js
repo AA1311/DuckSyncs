@@ -77,16 +77,8 @@ export function generateMonthCalendarDays(currentDate) {
   return calendarDays;
 }
 
-// export function isTheSameDay(dateA, dateB) {
-//   return dateA.getFullYear() === dateB.getFullYear() && dateA.getMonth() === dateB.getMonth() && dateA.getDate() === dateB.getDate();
-// }
-
 export function isTheSameDay(dateA, dateB) {
-  const a = new Date(dateA).toISOString().substr(0, 10); // "2025-04-10"
-  const b = new Date(dateB).toISOString().substr(0, 10); // "2025-04-10"
-  const isSame = a === b;
-  console.log("isTheSameDay (UTC):", "dateA:", a, "dateB:", b, "Result:", isSame);
-  return isSame;
+  return dateA.getFullYear() === dateB.getFullYear() && dateA.getMonth() === dateB.getMonth() && dateA.getDate() === dateB.getDate();
 }
 
 export function generateWeekDays(date) {

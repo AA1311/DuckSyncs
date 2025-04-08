@@ -11,12 +11,7 @@ const dateFormatter = new Intl.DateTimeFormat("en-US", {
   weekday: 'short'
 });
 
-export async function initWeekCalendar(parent, selectedDate, eventStore, isSingleDay, deviceType) { // Made async
-  if (!calendarTemplateElement) {
-    console.error("Week calendar template not found!");
-    return;
-  }
-
+export function initWeekCalendar(parent, selectedDate, eventStore, isSingleDay, deviceType) {
   const calendarContent = calendarTemplateElement.content.cloneNode(true);
   const calendarElement = calendarContent.querySelector("[data-week-calendar]");
   const calendarDayOfWeekListElement = calendarElement.querySelector("[data-week-calendar-day-of-week-list]");
@@ -25,21 +20,8 @@ export async function initWeekCalendar(parent, selectedDate, eventStore, isSingl
 
   const weekDays = isSingleDay ? [selectedDate] : generateWeekDays(selectedDate);
   for (const weekDay of weekDays) {
-    let events;
-    try {
-      events = await eventStore.getEventsByDate(weekDay); // Await the Promise
-      console.log("Events fetched for", weekDay.toDateString(), ":", events);
-    } catch (error) {
-      console.error("Error fetching events for", weekDay.toDateString(), ":", error);
-      events = []; // Default to empty array on error
-    }
-
-    if (!Array.isArray(events)) {
-      console.error("Events is not an array for", weekDay.toDateString(), ":", events);
-      events = []; // Ensure events is an array
-    }
-
-    const allDayEvents = events.filter((event) => isEventAllDay(event)); // Now safe
+    const events = eventStore.getEventsByDate(weekDay);
+    const allDayEvents = events.filter((event) => isEventAllDay(event));
     const nonAllDayEvents = events.filter((event) => !isEventAllDay(event));
 
     sortEventsByTime(nonAllDayEvents);
@@ -59,6 +41,7 @@ export async function initWeekCalendar(parent, selectedDate, eventStore, isSingl
   parent.appendChild(calendarElement);
 
   const dynamicEventElements = calendarElement.querySelectorAll("[data-event-dynamic]");
+
   for (const dynamicEventElement of dynamicEventElements) {
     adjustDynamicEventMaxLines(dynamicEventElement);
   }
@@ -84,13 +67,17 @@ function initDayOfWeek(parent, selectedDate, weekDay, deviceType) {
 
   calendarDayOfWeekButtonElement.addEventListener("click", () => {
     document.dispatchEvent(new CustomEvent("date-change", {
-      detail: { date: weekDay },
+      detail: {
+        date: weekDay
+      },
       bubbles: true
     }));
 
     if (deviceType !== "mobile") {
       document.dispatchEvent(new CustomEvent("view-change", {
-        detail: { view: "day" },
+        detail: {
+          view: "day"
+        },
         bubbles: true
       }));
     }
@@ -131,7 +118,11 @@ function initColumn(parent, weekDay, events) {
 
     calendarColumnCellElement.addEventListener("click", () => {
       document.dispatchEvent(new CustomEvent("event-create-request", {
-        detail: { date: weekDay, startTime: cellStartTime, endTime: cellEndTime },
+        detail: {
+          date: weekDay,
+          startTime: cellStartTime,
+          endTime: cellEndTime
+        },
         bubbles: true
       }));
     });
@@ -167,7 +158,7 @@ function calculateEventsDynamicStyles(events) {
         left: `${leftPercentage}%`,
         right: `${rightPercentage}%`
       }
-    };
+    }
   });
 }
 
@@ -300,7 +291,7 @@ function sortEventsByTime(events) {
     }
 
     if (eventStartsBefore(eventB, eventA)) {
-      return 1;
+      return 1
     }
 
     return eventEndsBefore(eventA, eventB) ? 1 : -1;

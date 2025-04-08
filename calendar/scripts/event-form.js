@@ -8,26 +8,26 @@ export function initEventForm(toaster) {
   formElement.addEventListener("submit", (event) => {
     event.preventDefault();
     const formEvent = formIntoEvent(formElement);
-    console.log("Form submitted, event:", formEvent, "Mode:", mode);
     const validationError = validateEvent(formEvent);
     if (validationError !== null) {
       toaster.error(validationError);
-      console.error("Validation error:", validationError);
       return;
     }
-  
+
     if (mode === "create") {
-      console.log("Dispatching event-create:", formEvent);
       formElement.dispatchEvent(new CustomEvent("event-create", {
-        detail: { event: formEvent },
+        detail: {
+          event: formEvent
+        },
         bubbles: true
       }));
     }
-  
+
     if (mode === "edit") {
-      console.log("Dispatching event-edit:", formEvent);
       formElement.dispatchEvent(new CustomEvent("event-edit", {
-        detail: { event: formEvent },
+        detail: {
+          event: formEvent
+        },
         bubbles: true
       }));
     }
@@ -106,10 +106,6 @@ function formIntoEvent(formElement) {
   const endTime = formData.get("end-time");
   const color = formData.get("color");
 
-  const eventDate = new Date(date);
-  eventDate.setHours(0, 0, 0, 0); // Normalize to midnight local time
-  console.log("Form date input:", date, "Normalized eventDate:", eventDate.toString(), "ISO:", eventDate.toISOString());
-
   const event = {
     id: id, // Null for new events; Firestore will assign
     title,
@@ -119,6 +115,5 @@ function formIntoEvent(formElement) {
     color
   };
 
-  console.log("Event created from form:", event);
   return event;
 }

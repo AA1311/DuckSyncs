@@ -1,13 +1,8 @@
 import { waitUntilAnimationsFinish } from "./animation.js";
 
 export function initDialog(name) {
-  const dialogElement = document.querySelector(`[data-dialog="${name}"]`);
-  if (!dialogElement) {
-    console.error(`Dialog element for "${name}" not found!`);
-    return { dialogElement: null, open: () => {}, close: () => Promise.resolve() };
-  }
-
-  const closeButtonElements = dialogElement.querySelectorAll("[data-dialog-close-button]");
+  const dialogElement = document.querySelector(`[data-dialog=${name}]`);
+  const closeButtonElements = document.querySelectorAll("[data-dialog-close-button]");
 
   function close() {
     dialogElement.classList.add("dialog--closing");
@@ -42,7 +37,6 @@ export function initDialog(name) {
   return {
     dialogElement,
     open() {
-      console.log(`Opening dialog: ${name}`);
       dialogElement.showModal();
     },
     close() {

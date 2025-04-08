@@ -120,20 +120,10 @@
     <main class="main main-dashboard responsive-main" style=
     
     "width: 1450px;display:flex; margin: auto 30px;" id ="main">
-        <div class="nav">
-        <button class="button button--icon button--secondary mobile-only" data-hamburger-button>
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="button__icon">
-            <line x1="4" x2="20" y1="12" y2="12" />
-            <line x1="4" x2="20" y1="6" y2="6" />
-            <line x1="4" x2="20" y1="18" y2="18" />
-          </svg>
-        </button>
-
+      <div class="nav">
         <div class="nav__date-info">
           <div class="nav__controls">
             <button class="button button--secondary desktop-only" data-nav-today-button>Today</button>
-            <button class="button button--icon button--secondary mobile-only" data-nav-today-button>
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                 class="button__icon">
@@ -188,14 +178,6 @@
       </div>
     </main>
   </div>
-
-  <button class="fab mobile-only" data-event-create-button>
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="fab__icon">
-      <path d="M5 12h14" />
-      <path d="M12 5v14" />
-    </svg>
-  </button>
 
   <dialog class="dialog" data-dialog="event-form">
     <form class="form" data-event-form>
@@ -481,50 +463,6 @@
     </div>
   </dialog>
 
-  <dialog class="dialog dialog--sidebar" data-dialog="mobile-sidebar">
-    <div class="dialog__wrapper">
-      <div class="dialog__content">
-        <div class="mini-calendar" data-mini-calendar>
-          <div class="mini-calendar__header">
-            <time class="mini-calendar__date" data-mini-calendar-date></time>
-
-            <div class="mini-calendar__controls">
-              <button class="button button--icon button--secondary button--sm" data-mini-calendar-previous-button>
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                  class="button__icon">
-                  <path d="m15 18-6-6 6-6" />
-                </svg>
-              </button>
-
-              <button class="button button--icon button--secondary button--sm" data-mini-calendar-next-button>
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                  class="button__icon">
-                  <path d="m9 18 6-6-6-6" />
-                </svg>
-              </button>
-            </div>
-          </div>
-
-          <div class="mini-calendar__content">
-            <ul class="mini-calendar__day-of-week-list">
-              <li class="mini-calendar__day-of-week">S</li>
-              <li class="mini-calendar__day-of-week">M</li>
-              <li class="mini-calendar__day-of-week">T</li>
-              <li class="mini-calendar__day-of-week">W</li>
-              <li class="mini-calendar__day-of-week">T</li>
-              <li class="mini-calendar__day-of-week">F</li>
-              <li class="mini-calendar__day-of-week">S</li>
-            </ul>
-
-            <ul class="mini-calendar__day-list" data-mini-calendar-day-list></ul>
-          </div>
-        </div>
-      </div>
-    </div>
-  </dialog>
-
   <template data-template="month-calendar">
     <div class="month-calendar" data-month-calendar>
       <ul class="month-calendar__day-of-week-list">
@@ -704,12 +642,6 @@
     </button>
   </template>
 
-  <template data-template="mini-calendar-day-list-item">
-    <li class="mini-calendar__day-list-item" data-mini-calendar-day-list-item>
-      <button class="mini-calendar__day button button--sm" data-mini-calendar-day></button>
-    </li>
-  </template>
-
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
 
@@ -718,6 +650,78 @@
 <script src="https://www.gstatic.com/firebasejs/9.6.11/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.6.11/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.6.11/firebase-firestore-compat.js"></script>
+
+
+<!-- <script>
+   const firebaseConfig = {
+       apiKey: "AIzaSyCGByO7UTykWwangv1jWWcguD7rqOTANb4",
+       authDomain: "login-ccfc8.firebaseapp.com",
+       projectId: "login-ccfc8",
+       storageBucket: "login-ccfc8.firebasestorage.app",
+       messagingSenderId: "916099550852",
+       appId: "1:916099550852:web:2f06cde9d6e1f842943cd1",
+       measurementId: "G-JZ8JY11W4Z"
+   };
+
+   firebase.initializeApp(firebaseConfig);
+   const auth = firebase.auth();
+
+   //Access the Firebase Firestore
+   const db = firebase.firestore();  // Get Firestore instance
+
+   // On page load, check if user is authenticated
+   auth.onAuthStateChanged(user => {
+       if (user) {
+           // If logged in, use data from localStorage
+           const userName = localStorage.getItem('userName');
+           const userEmail = localStorage.getItem('userEmail');
+           const userPhoto = localStorage.getItem('userPhoto') || '../images/profileDefault.jpg';
+
+
+           // Display user info
+           document.getElementById('user-name').textContent = userName;
+           document.getElementById('user-email').textContent = userEmail;
+           document.getElementById('userPhoto').src = userPhoto;
+
+          // Load calendar events from Firestore
+          loadCalendarEvents(user.uid);
+
+       } else {
+           // If not signed in, redirect to login page
+           window.location.href = "../index.html";  // Redirect to login page
+       }
+   });
+
+   // Logout functionality
+   document.getElementById('logout-button').addEventListener('click', function (e) {
+       e.preventDefault();
+       auth.signOut().then(() => {
+           // Redirect back to login page after logout
+           localStorage.removeItem('userName');
+           localStorage.removeItem('userEmail');
+           window.location.href = "../index.html";  // Redirect to login page
+       });
+   });
+
+
+   // Function to load events from Firestore
+   function loadCalendarEvents(uid) {
+       db.collection('users').doc(uid).collection('events').onSnapshot((snapshot) => {
+           const events = [];
+           snapshot.forEach(doc => {
+               events.push({ id: doc.id, ...doc.data() });
+           });
+           // Dispatch event to update the calendar
+           document.dispatchEvent(new CustomEvent("events-loaded", {
+               detail: { events },
+               bubbles: true
+           }));
+       }, (error) => {
+           console.error("Error loading events:", error);
+       });
+   }
+
+</script> -->
 
 <script>
   const firebaseConfig = {
@@ -741,19 +745,22 @@
       console.log("User logged in:", { uid: user.uid, email: user.email });
 
       const userRef = db.collection("users").doc(user.uid);
-      userRef
-        .set(
-          {
-            name: user.displayName || "Unknown",
-            email: user.email,
-            photoURL: user.photoURL || "../images/profileDefault.jpg",
-            createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-            lastLogin: firebase.firestore.FieldValue.serverTimestamp(),
-          },
-          { merge: true }
-        )
-        .then(() => console.log("User document saved:", user.uid))
-        .catch((error) => console.error("Error saving user document:", error));
+      userRef.get().then((doc) => {
+        if (!doc.exists) {
+          console.log("Creating user document for UID:", user.uid);
+          userRef
+            .set({
+              name: user.displayName || "Unknown",
+              email: user.email,
+              photoURL: user.photoURL || "../images/profileDefault.jpg",
+              createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+            })
+            .then(() => console.log("User document created:", user.uid))
+            .catch((error) => console.error("Error creating user document:", error));
+        } else {
+          console.log("User document already exists:", doc.data());
+        }
+      }).catch((error) => console.error("Error checking user document:", error));
 
       localStorage.setItem("userName", user.displayName || "Unknown");
       localStorage.setItem("userEmail", user.email);
@@ -764,6 +771,7 @@
 
       loadCalendarEvents(user.uid);
     } else {
+      console.log("No user authenticated, redirecting...");
       window.location.href = "../index.html";
     }
   });
@@ -773,11 +781,11 @@
     auth.signOut().then(() => {
       localStorage.clear();
       window.location.href = "../index.html";
-    });
+    }).catch((error) => console.error("Error signing out:", error));
   });
 
   function loadCalendarEvents(uid) {
-    console.log("Loading events for UID:", uid);
+    console.log("Setting up Firestore listener for UID:", uid);
     db.collection("users")
       .doc(uid)
       .collection("events")
@@ -786,20 +794,13 @@
           const events = [];
           snapshot.forEach((doc) => {
             const eventData = doc.data();
-            const eventDate = new Date(eventData.date);
-            eventDate.setHours(0, 0, 0, 0); // Normalize to midnight local time
-            console.log(
-            "Firestore event ID:", doc.id,
-            "Raw date:", eventData.date,
-            "Normalized date:", eventDate.toString()
-          );
             events.push({
               id: doc.id,
               ...eventData,
-              date: eventDate,
+              date: new Date(eventData.date),
             });
           });
-          console.log("Events from Firestore:", events);
+          console.log("Events loaded from Firestore for UID", uid, ":", events);
           document.dispatchEvent(
             new CustomEvent("events-loaded", {
               detail: { events },
@@ -808,7 +809,7 @@
           );
         },
         (error) => {
-          console.error("Error loading events:", error);
+          console.error("Error loading events for UID", uid, ":", error);
         }
       );
   }
