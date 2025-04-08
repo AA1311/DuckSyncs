@@ -816,20 +816,38 @@
 
 <!-- Copilot DOM elements unchanged -->
 <div id="copilot-icon" onclick="toggleCopilot()">💬</div>
+<<<<<<< HEAD
+=======
+
+<!-- Floating Copilot Chat Icon -->
+<div id="copilot-icon" onclick="toggleCopilot()">💬</div>
+
+<!-- Copilot Chat Box -->
+>>>>>>> d88a260b7dee3bd92931f87ae1d72a162493e5c6
 <div id="copilot-container" class="hidden">
   <div id="copilot-header">🤖 Calendar Copilot</div>
   <div id="copilot-messages"></div>
   <div id="copilot-input-area">
     <input type="text" id="copilot-input" placeholder="Ask about your calendar..." />
     <button onclick="sendToCopilot()">➤</button>
+    <!-- PDF Upload Button: Label triggers hidden file input -->
+    <label id="file-upload-btn" for="file-upload">📎</label>
+    <input type="file" id="file-upload" accept=".pdf" onchange="handleFileUpload(event)" />
   </div>
 </div>
 
+<<<<<<< HEAD
+=======
+<!-- Bind Copilot functions -->
+>>>>>>> d88a260b7dee3bd92931f87ae1d72a162493e5c6
 <script type="module">
-  import { toggleCopilot, sendToCopilot } from './scripts/copilot.js';
+  import { toggleCopilot, sendToCopilot, handleFileUpload } from './scripts/copilot.js';
   window.toggleCopilot = toggleCopilot;
   window.sendToCopilot = sendToCopilot;
+  window.handleFileUpload = handleFileUpload;
 </script>
+
+<script src="./scripts/index.js" type="module"></script>
 
 </body>
 </html>
