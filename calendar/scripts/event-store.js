@@ -19,25 +19,23 @@ export function initEventStore(userId) {
   document.addEventListener("event-create", (event) => {
     const createdEvent = event.detail.event;
     const eventDate = new Date(createdEvent.date);
-    eventDate.setHours(0, 0, 0, 0); // Normalize to midnight local time
+    eventDate.setHours(0, 0, 0, 0);
     const safeEvent = {
-      ...createdEvent,
-      date: eventDate.toISOString(),
+      title: createdEvent.title,
+      date: eventDate.toISOString().split('T')[0], // e.g., '2025-04-17'
+      startTime: createdEvent.startTime,
+      endTime: createdEvent.endTime,
+      color: createdEvent.color
+      // Exclude id field
     };
-
-    console.log(
-      "Event creation triggered for UID:", userId,
-      "Input date:", createdEvent.date.toString(),
-      "Normalized date:", eventDate.toString(),
-      "Saved ISO date:", safeEvent.date
-    );
-    console.log("Event creation triggered for UID:", userId, "Data:", safeEvent);
-
+  
+    console.log("Event creation triggered with Data:", safeEvent);
+  
     userEventsRef
       .add(safeEvent)
       .then((docRef) => {
         console.log("Event saved to Firestore with ID:", docRef.id, "Data:", safeEvent);
-        // Rely on events-loaded to update cache and refresh UI
+        // Optionally, update local cache with the correct ID here
       })
       .catch((error) => {
         console.error("Error saving event:", error);
@@ -47,27 +45,39 @@ export function initEventStore(userId) {
   document.addEventListener("event-delete", (event) => {
     const deletedEvent = event.detail.event;
     console.log("Deleting event:", deletedEvent.id);
-    userEventsRef.doc(deletedEvent.id.toString()).delete().then(() => {
-      console.log("Event deleted:", deletedEvent.id);
-      cachedEvents = cachedEvents.filter(e => e.id !== deletedEvent.id);
-      document.dispatchEvent(new CustomEvent("events-change", { bubbles: true }));
-    }).catch((error) => console.error("Error deleting event:", error));
+    if (deletedEvent.id) {
+      userEventsRef.doc(deletedEvent.id).delete().then(() => {
+        console.log("Event deleted:", deletedEvent.id);
+        cachedEvents = cachedEvents.filter(e => e.id !== deletedEvent.id);
+        document.dispatchEvent(new CustomEvent("events-change", { bubbles: true }));
+      }).catch((error) => console.error("Error deleting event:", error));
+    } else {
+      console.error("Cannot delete event without id");
+    }
   });
 
   document.addEventListener("event-edit", (event) => {
     const editedEvent = event.detail.event;
     const eventDate = new Date(editedEvent.date);
-    eventDate.setHours(0, 0, 0, 0); // Normalize to midnight local time
+    eventDate.setHours(0, 0, 0, 0);
     const safeEvent = {
-      ...editedEvent,
+      title: editedEvent.title,
       date: eventDate.toISOString(),
+      startTime: editedEvent.startTime,
+      endTime: editedEvent.endTime,
+      color: editedEvent.color
+      // Exclude id field
     };
-    console.log("Editing event:", safeEvent);
-    userEventsRef.doc(safeEvent.id).set(safeEvent).then(() => {
-      console.log("Event edited:", safeEvent);
-      cachedEvents = cachedEvents.map(e => (e.id === safeEvent.id ? { ...safeEvent, date: new Date(safeEvent.date) } : e));
-      document.dispatchEvent(new CustomEvent("events-change", { bubbles: true }));
-    }).catch((error) => console.error("Error editing event:", error));
+    console.log("Editing event:", editedEvent);
+    if (editedEvent.id) {
+      userEventsRef.doc(editedEvent.id).set(safeEvent)
+        .then(() => {
+          console.log("Event edited successfully");
+        })
+        .catch((error) => console.error("Error editing event:", error));
+    } else {
+      console.error("Cannot edit event without id");
+    }
   });
 
   return {

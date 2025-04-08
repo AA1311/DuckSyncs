@@ -69,6 +69,7 @@ function fillFormWithEvent(formElement, event) {
   const colorInputElement = formElement.querySelector(`[value='${event.color}']`);
 
   idInputElement.value = event.id;
+  console.log("Set hidden input #id to:", idInputElement.value); // Debug
   titleInputElement.value = event.title;
   dateInputElement.value = event.date.toISOString().substr(0, 10);
   startTimeSelectElement.value = event.startTime;
@@ -76,42 +77,17 @@ function fillFormWithEvent(formElement, event) {
   colorInputElement.checked = true;
 }
 
-// function formIntoEvent(formElement) {
-//   const formData = new FormData(formElement);
-//   const id = formData.get("id");
-//   const title = formData.get("title");
-//   const date = formData.get("date");
-//   const startTime = formData.get("start-time");
-//   const endTime = formData.get("end-time");
-//   const color = formData.get("color");
-
-//   const event = {
-//     id: id ? Number.parseInt(id, 10) : generateEventId(),
-//     title,
-//     date: new Date(date),
-//     startTime: Number.parseInt(startTime, 10),
-//     endTime: Number.parseInt(endTime, 10),
-//     color
-//   };
-
-//   return event;
-// }
-
 function formIntoEvent(formElement) {
   const formData = new FormData(formElement);
-  const id = formData.get("id") || null; // Use Firestore ID if present, otherwise null
+  const id = formData.get("id");
   const title = formData.get("title");
   const date = formData.get("date");
   const startTime = formData.get("start-time");
   const endTime = formData.get("end-time");
   const color = formData.get("color");
 
-  const eventDate = new Date(date);
-  eventDate.setHours(0, 0, 0, 0); // Normalize to midnight local time
-  console.log("Form date input:", date, "Normalized eventDate:", eventDate.toString(), "ISO:", eventDate.toISOString());
-
   const event = {
-    id: id, // Null for new events; Firestore will assign
+    id: id || null, // Keep as string or null for new events
     title,
     date: new Date(date),
     startTime: Number.parseInt(startTime, 10),
@@ -119,6 +95,5 @@ function formIntoEvent(formElement) {
     color
   };
 
-  console.log("Event created from form:", event);
   return event;
 }
