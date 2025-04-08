@@ -1,0 +1,13 @@
+#slide-menu.sidenav.mobile-nav
+  .menu
+    ul.collection
+      each item, index in menu.saas
+        li.collection-item(style="animation-duration: "+(Number(index + 1)) * 0.25 + 's')
+          a.sidenav-close.waves-effect.menu-list(href='#' + item.name) #{$t.saas_landing['header_'+item.name]}
+      li.collection-item(style="animation-duration: "+menu.saas.length * 0.25 + 's')
+          a.waves-effect.menu-list(href=link.saas.contact) #{$t.saas_landing.header_contact}
+    hr.divider-sidebar
+    ul.collection
+      each item, index in ['login', 'register']
+        li.collection-item(style="animation-duration: "+menu.saas.length * 0.25 + 's')
+          a.sidenav-close.waves-effect.menu-list(href=item + ".html") #{$t.saas_landing['header_'+item]}

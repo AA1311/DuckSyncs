@@ -1,0 +1,163 @@
+include titles/title.pug
+
+.root
+  .decoration
+    |
+    |
+    svg.wave(width="1281px" height="1569px" viewBox="0 0 1281 1569" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink")
+      include svg/deco-bg.pug
+    |
+    |
+  #feature_parallax.container.fixed-width-lg-up
+    .item
+      .row
+        .col-md-6.order-md-last
+          .wow.fadeInLeftShort(data-wow-duration="0.4s" data-wow-delay="0.2s" data-wow-offset="-100")
+            .desc
+              +title-main("left")
+                span #{$t.saas_landing.feature_title1} 
+                  strong #{$t.saas_landing.feature_titlestrong1}
+              h6.use-text-subtitle2.text-center.text-lg-start #{$t.saas_landing.feature_desc1}
+              |
+              |
+              a.btn.primary.btn-large.waves-effect(href="#") #{$t.saas_landing.see_detail}
+              |
+              |
+        .col-md-6.order-md-first
+          .illustration-left
+            .d-lg-none
+              .parallax-screen
+                .viewport
+                  figure.figure.screen
+                    |
+                    |
+                    img(src=imgAPI.saas[0] alt="screen")/
+                    |
+                    |
+            .d-none.d-lg-block
+              .parallax-screen
+                div(data-enllax-ratio="0.1" data-enllax-type="foreground")
+                  .viewport
+                    figure.figure.screen
+                      |
+                      |
+                      img(src=imgAPI.saas[0] alt="screen")/
+                      |
+                      |
+              .parallax-screen
+                div(data-enllax-ratio="-0.05" data-enllax-type="foreground")
+                  .viewport
+                    figure.figure.graphic
+                      |
+                      |
+                      img(src=imgAPI.saas[1] alt="illustration")/
+                      |
+                      |
+            include parallax/medium.pug
+    .item
+      .row
+        .col-md-6
+          .wow.fadeInRightShort(data-wow-duration="0.4s" data-wow-delay="0.5s" data-wow-offset="-100")
+            .desc
+              +title-main("right")
+                span #{$t.saas_landing.feature_title1} 
+                  strong #{$t.saas_landing.feature_titlestrong2}
+              h6.use-text-subtitle2.text-right #{$t.saas_landing.feature_desc2}
+              .text-center.text-lg-right
+                |
+                |
+                a.btn.primary.btn-large.waves-effect(href="#") #{$t.saas_landing.see_detail}
+                |
+                |
+        .col-md-6
+          .illustration-right
+            .d-lg-none
+              .parallax-screen
+                .viewport
+                  figure.figure.screen
+                    |
+                    |
+                    img(src=imgAPI.saas[2] alt="screen")/
+                    |
+                    |
+            .d-none.d-lg-block
+              .parallax-screen
+                div(data-enllax-ratio="0.1" data-enllax-type="foreground")
+                  .viewport
+                    figure.figure.screen
+                      |
+                      |
+                      img(src=imgAPI.saas[2] alt="screen")/
+                      |
+                      |
+              .parallax-screen
+                div(data-enllax-ratio="-0.05" data-enllax-type="foreground")
+                  .viewport
+                    figure.graphic
+                      |
+                      |
+                      img(src=imgAPI.saas[3] alt="illustration")/
+                      |
+                      |
+            include parallax/medium.pug
+    .item.last
+      +title-main("center")
+        span #{$t.saas_landing.feature_title3} 
+          strong #{$t.saas_landing.feature_titlestrong3}
+      .tab
+        .row.spacing6.justify-content-center
+          .col-md-1.pa-6.d-sm-none
+          .col-md-10.pa-6
+            ul.tabs.primary
+              li.tab
+                |
+                |
+                a.tab-label.active.waves-effect(href='#tab-1') Pellentesque
+                |
+                |
+              li.tab
+                |
+                |
+                a.tab-label.waves-effect(href='#tab-2') Donec
+                |
+                |
+              li.tab
+                |
+                |
+                a.tab-label.waves-effect(href='#tab-3') Vestibulum
+                |
+                |
+            #tab-1.tab-item
+              .tab-content
+                section
+                  h6.text-center.use-text-subtitle2 #{$t.saas_landing.feature_desc3}
+                  .illustration-center
+                    figure.figure.screen
+                      |
+                      |
+                      img(src=imgAPI.saas[4] alt="screen")/
+                      |
+                      |
+            #tab-2.tab-item
+              .tab-content
+                section
+                  h6.text-center.use-text-subtitle2 #{$t.saas_landing.feature_desc3}
+                  .illustration-center
+                    figure.figure.screen
+                      |
+                      |
+                      img(src=imgAPI.saas[5] alt="screen")/
+                      |
+                      |
+            #tab-3.tab-item
+              .tab-content
+                section
+                  h6.text-center.use-text-subtitle2 #{$t.saas_landing.feature_desc3}
+                  .illustration-center
+                    figure.figure.screen
+                      |
+                      |
+                      img(src=imgAPI.saas[6] alt="screen")/
+                      |
+                      |
+        include parallax/large.pug

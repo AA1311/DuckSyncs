@@ -1,0 +1,63 @@
+include mobile-menu.pug
+
+mixin header(invert)
+  header.app-bar.header#header
+    .container.fixed-width-lg-up
+      .header-content
+        nav.nav-logo.nav-menu(class=invert && "invert")
+          |
+          |
+          button#mobile_menu.mobile-menu.btn-icon.waves-effect.hamburger.hamburger--spin.show-md-down(
+            type="button"
+          )
+            |
+            |
+            span.hamburger-box
+              span.bar.hamburger-inner
+            |
+            |
+          .logo(class= !invert && "scrollnav")
+            |
+            |
+            a(href=invert ? link.saas.home : "#banner")
+              img(
+                src=assets + brand.saas.img
+                alt="logo"
+              )/
+              span #{brand.saas.name}
+            |
+            |
+          div
+            .scrollactive-nav.show-lg-up(class= !invert && "scrollnav")
+              ul
+                li.d-none
+                  a(href="#banner")
+                each item in menu.saas
+                  |
+                  |
+                  li
+                    a.btn.btn-flat.anchor-link.waves-effect(
+                      href=invert ? 'index.html#'+item.name : '#'+item.name
+                    ) #{$t.saas_landing['header_'+item.name]}
+                |
+                |
+                li
+                  a.btn.btn-flat.anchor-link.waves-effect(
+                    href=link.saas.contact
+                  ) #{$t.saas_landing.header_contact}
+                |
+                |
+        nav.nav-menu(class=invert && "invert")
+          .hidden-xs-down
+            |
+            |
+            a.btn.btn-flat.text-btn.waves-effect(href=link.saas.login) #{$t.saas_landing.header_login}
+            |
+            |
+            a.btn.secondary.button.waves-effect(href=link.saas.register) #{$t.saas_landing.header_register}
+            |
+            |
+            include ./settings
+          +settings(invert)
+  |
+  |

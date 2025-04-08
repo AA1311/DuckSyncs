@@ -1,0 +1,234 @@
+$footer-deco-light: '../images/saas/footer-deco-light.svg';
+$footer-deco-dark: '../images/saas/footer-deco-dark.svg';
+
+.footer {
+  .link {
+    margin: spacing(1, 1.5);
+  }
+  margin-top: $spacing8;
+  padding-top: $spacing3;
+  padding-bottom: $spacing8;
+  color: $palette-common-white;
+  position: relative;
+  z-index: 10;
+  ul {
+    margin: 0;
+    padding: 0;
+    li {
+      list-style: none;
+      line-height: 32px;
+      a {
+        text-decoration: none;
+        font-size: 14px;
+        color: $palette-common-white;
+        &:hover {
+          color: $palette-primary-light
+        }
+      }
+    }
+  }
+  .title-nav {
+    color: $palette-common-white;
+    font-size: 14px;
+    text-transform: uppercase;
+    margin-bottom: $spacing3;
+    font-weight: $font-bold
+  }
+  &-desc{
+    display: block;
+    font-size: 14px;
+    margin-bottom: $spacing2
+  }
+  &.invert {
+    p {
+      @include palette-text-primary;
+    }
+    li a {
+      @include palette-text-primary;
+    }
+    .logo {
+      h6 {
+        @include use-theme(color, $palette-primary-dark, $palette-common-white)
+      }
+    }
+    .title-nav {
+      @include use-theme(color, $palette-primary-dark, $palette-primary-light)
+    }
+  }
+  .collapsible {
+    border: none;
+    box-shadow: none;
+    max-width: 480px;
+    margin: 0 auto;
+  }
+  .collapsible-header {
+    background: none;
+    box-shadow: none;
+    border: none;
+    padding: $spacing1 1rem;
+    h6 {
+      font-size: 15px !important;
+      font-weight: $font-bold;
+    }
+    i {
+      margin-right: 0
+    }
+  }
+  .collapsible-body {
+    border: none;
+    margin-bottom: $spacing4
+  }
+  .logo {
+    text-align: center;
+    margin-bottom: $spacing3;
+    img {
+      width: 64px;
+    }
+    h6 {
+      color: $palette-common-white;
+    }
+  }
+
+  .socmed {
+    display: flex;
+    justify-content: center;
+    margin-bottom: $spacing4;
+    a {
+      margin: $spacing1;
+      color: $palette-primary-dark;
+      background: $palette-primary-main;
+      width: 36px;
+      height: 36px;
+      .icon {
+        color: $palette-common-white
+      }
+    }
+    .icon {
+      font-size: 24px
+    }
+  }
+  .select-lang.select-outlined .select-wrapper {
+    margin: 0 auto;
+    width: 200px;
+    display: inherit;
+    margin-top: $spacing2;
+    .caret {
+      fill: $palette-common-white;
+    }
+    input.select-dropdown {
+      box-shadow: 0 1.5px 12px 2px rgba(0, 0, 0, 0.06);
+      border-color: rgba(255, 255, 255, 0.3);
+      color: $palette-primary-light;
+      height: 2.5rem;
+      line-height: 2.5rem;
+    }
+  }
+  .site-map-item {
+    @include breakpoints-down('md') {
+      padding-bottom: 0 !important;
+      padding-top: 0 !important
+    }
+  }
+  .accordion-icon {
+    padding: 0
+  }
+  &.invert {
+    @include palette-text-primary;
+    p {
+      @include palette-text-primary;
+    }
+    li a {
+      @include palette-text-primary;
+    }
+    .logo {
+      h6 {
+        color: $palette-primary-dark
+      }
+    }
+    .title-nav {
+      @include use-theme(color, $palette-primary-dark, $palette-primary-light)
+    }
+    .select-lang.select-outlined .select-wrapper {
+      .caret {
+        @include use-theme(fill, $light-text-primary, $dark-text-primary)
+      }
+      input.select-dropdown {
+        @include use-theme(border-color, $light-text-secondary, $dark-text-secondary);
+        @include palette-text-primary
+      }
+    }
+  }
+}
+
+.footer-deco {
+  position: relative;
+  z-index: 80;
+  top: 0;
+  background: linear-gradient(-45deg, $palette-primary-dark 30%, $palette-primary-main 90%);
+  padding-top: $spacing20 * 2;
+  @include breakpoints-down(md) {
+    padding-top: $spacing10 * 3;
+  }
+  @include breakpoints-down(xs) {
+    padding-top: $spacing20;
+  }
+  &:before {
+    @include use-theme(background-image, url($footer-deco-light), url($footer-deco-dark));
+    background-repeat: no-repeat;
+    background-position: top left;
+    background-size: 100% auto;
+    top: -3px;
+    @include left(0);
+    content: "";
+    width: 100%;
+    height: 270px;
+    position: absolute;
+    z-index: 10
+  }
+  .decoration {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    @include left(0);
+    overflow: hidden;
+    clip: rect(0, auto, auto, 0);
+    svg {
+      fill: $palette-secondary-main;
+      opacity: 0.15;
+      position: fixed;
+      top: 40px;
+    }
+  }
+
+  .left-deco {
+    left: 0;
+    right: auto;
+    width: 1200px;
+    height: 1500px;
+    transform: scale(0.5);
+    transform-origin: top left;
+  }
+
+  .right-deco {
+    left: auto;
+    right: 0;
+    height: 1500px;
+    transform: scale(0.5);
+    transform-origin: top right;
+  }
+
+  .action {
+    text-align: center;
+    padding: spacing(0, 2);
+    h4 {
+      font-weight: $font-bold;
+      color: $palette-common-white;
+      margin-bottom: $spacing6;
+      @include breakpoints-down(xs) {
+        font-size: 28px;
+        line-height: 44px
+      }
+    }
+  }
+}
