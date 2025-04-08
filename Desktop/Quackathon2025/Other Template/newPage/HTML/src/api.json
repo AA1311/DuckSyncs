@@ -1,0 +1,87 @@
+{
+  "brand": {
+    "saas": {
+      "name": "Software",
+      "desc": "Alexstrap Saas - HTML5 Bootstrap Landing Page Template",
+      "prefix": "alexstrap",
+      "footerText": "Alexstrap Saas 2022",
+      "logoText": "Alexstrap Theme",
+      "projectName": "Software",
+      "url": "alexstrap.ux-maestro.com/saas",
+      "img": "/images/saas-logo.png",
+      "notifMsg": "Donec sit amet nulla sed arcu pulvinar ultricies commodo id ligula"
+    }
+  },
+  "link": {
+    "saas": {
+      "home": "index.html",
+      "contact": "contact.html",
+      "login": "login.html",
+      "register": "register.html"
+    }
+  },
+  "imgAPI": {
+    "avatar": [
+      "https://avatars.dicebear.com/api/avataaars/as.svg",
+      "https://avatars.dicebear.com/api/avataaars/as.svg",
+      "https://avatars.dicebear.com/api/avataaars/as.svg",
+      "https://avatars.dicebear.com/api/avataaars/as.svg",
+      "https://avatars.dicebear.com/api/avataaars/as.svg",
+      "https://avatars.dicebear.com/api/avataaars/as.svg",
+      "https://avatars.dicebear.com/api/avataaars/qwert.svg",
+      "https://avatars.dicebear.com/api/avataaars/qwert.svg",
+      "https://avatars.dicebear.com/api/avataaars/qwert.svg",
+      "https://avatars.dicebear.com/api/avataaars/qwert.svg",
+      "https://avatars.dicebear.com/api/avataaars/qwert.svg"
+    ],
+    "photo": [
+      "https://via.placeholder.com/675x900/e1ad92/fff",
+      "https://via.placeholder.com/967x725/ea6d6d/fff",
+      "https://via.placeholder.com/1280x849/ea6db7/fff",
+      "https://via.placeholder.com/967x725/bb6dea/fff",
+      "https://via.placeholder.com/1048x701/6d6fea/fff",
+      "https://via.placeholder.com/1050x700/6dc0ea/fff",
+      "https://via.placeholder.com/970x725/6deaa6/fff",
+      "https://via.placeholder.com/1051x700/b8de27/fff",
+      "https://via.placeholder.com/1051x701/de9f27/fff",
+      "https://via.placeholder.com/1050x700/ef4545/fff",
+      "https://via.placeholder.com/1050x700/ffc4c4/757575",
+      "https://via.placeholder.com/640x447/fdffc4/757575",
+      "https://via.placeholder.com/1280x851/c4ffd7/757575",
+      "https://via.placeholder.com/640x425/c4cdff/757575"
+    ],
+    "saas": [
+      "https://via.placeholder.com/1000x625/f2c9ff/757575",
+      "https://via.placeholder.com/1472x637/5abce4/FFFFFF",
+      "https://via.placeholder.com/1000x625/e6f8ff/757575",
+      "https://i.ibb.co/TvqpjZf/app-counter.png",
+      "https://via.placeholder.com/1000x680/b44fd4/FFFFFF",
+      "https://via.placeholder.com/1000x680/00a7e8/FFFFFF",
+      "https://via.placeholder.com/1000x680/e91e63/FFFFFF",
+      "https://i.ibb.co/KFHPTh2/desktop-illustration.png"
+    ]
+  },
+  "menu": {
+    "saas": [
+      {
+        "name": "feature",
+        "offset": 0
+      },
+      {
+        "name": "testimonials",
+        "offset": 0
+      },
+      {
+        "name": "pricing",
+        "offset": 0
+      },
+      {
+        "name": "faq",
+        "offset": -40
+      }
+    ]
+  },
+  "youtube": {
+    "use": true
+  }
+}

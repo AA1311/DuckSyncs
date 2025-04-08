@@ -1,0 +1,108 @@
+@mixin align {
+  &.align-left {
+    @include text-align(left);
+    &:after {
+      @include left(0);
+    }
+  }
+
+  &.align-right {
+    @include text-align(right);
+    &:after {
+      @include right(0);
+    }
+  }
+
+  &.align-center {
+    text-align: center;
+    &:after {
+      @include left(50%);
+      @include margin-left(-35px);
+    }
+  }
+}
+
+.title-main {
+  @include align;
+  display: block;
+  position: relative;
+  margin-bottom: $spacing9;
+  @include breakpoints-down(sm) {
+    text-align: center !important;
+    &:after {
+      left: 50% !important;
+      margin-left: -35px !important;
+    }
+  }
+  h4 {
+    font-size: 36px;
+    line-height: 54px;
+    font-weight: $font-bold;
+    letter-spacing: -0.8px;
+    @include breakpoints-down(md) {
+      font-size: 32px;
+      line-height: 48px;
+    }
+    @include breakpoints-down(xs) {
+      font-size: 28px;
+      line-height: 44px;
+    }
+  }
+  &:after {
+    content: "";
+    width: 70px;
+    height: 12px;
+    bottom: -32px;
+    border-radius: 12px;
+    background: $palette-primary-main;
+    position: absolute
+  }
+  & strong {
+    @include palette-text-primary
+  }
+}
+
+.title-secondary {
+  @include align;
+  display: block;
+  position: relative;
+  margin-bottom: $spacing12;
+  text-transform: capitalize;
+  @include breakpoints-down(sm) {
+    text-align: center !important;
+    &:after {
+      left: 50% !important;
+      margin-left: -35px !important;
+    }
+  }
+  @include breakpoints-down(xs) {
+    margin-bottom: $spacing10
+  }
+  h3 {
+    @include palette-text-primary;
+    font-size: 36px;
+    line-height: 56px;
+    font-weight: $font-bold;
+    letter-spacing: 1px;
+    @include breakpoints-down(md) {
+      font-size: 32px;
+      line-height: 48px;
+    }
+    @include breakpoints-down(xs) {
+      font-size: 28px;
+      line-height: 44px;
+    }
+  }
+  &:after {
+    content: "";
+    width: 70px;
+    height: 12px;
+    bottom: $spacing4 * -1;
+    border-radius: 12px;
+    background: $palette-primary-main;
+    position: absolute
+  }
+  strong {
+    @include palette-text-primary
+  }
+}

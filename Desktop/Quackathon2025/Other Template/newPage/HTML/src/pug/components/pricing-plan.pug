@@ -1,0 +1,55 @@
+include titles/title
+include cards/pricing
+
+-
+  var featureList = {
+    basic: [
+      '10 users',
+      'Scrum and Kanban boards',
+      'Backlog'
+    ],
+    best: [
+      '20.000 users',
+      'Scrum and Kanban boards',
+      'Backlog',
+      'Customizable workflows',
+    ],
+    pro: [
+      '30.000 users',
+      'Scrum and Kanban boards',
+      'Backlog',
+      'Customizable workflows',
+      'Apps integrations'
+    ],
+    enterprise: [
+      '100.000 users',
+      'Scrum, Kanban boards, Agile Reporting',
+      'Backlog',
+      'Customizable workflows',
+      'Cloud integrations'
+    ]
+  }
+
+.root
+  .decoration
+    |
+    |
+    svg(version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px")
+      include svg/deco-med-bg.pug
+    |
+    |
+  .container.fixed-width-lg-up
+    .item
+      +title-main("center")
+        strong #{$t.saas_landing.pricing_title}
+    p.subtitle.use-text-subtitle2.text-center #{$t.saas_landing.pricing_subtitle}
+    .pricing-wrap
+      section
+        .wow.fadeInUpShort.item(data-wow-offset="-10" data-wow-delay="0.4s" data-wow-duration="0.4s")
+          +pricing-card(0, featureList.basic, "Basic", "Interdum et malesuada fames ac ante ipsum primis in faucibus. ", "basic")
+        .wow.fadeInUpShort.item(data-wow-offset="-10" data-wow-delay="0.6s" data-wow-duration="0.4s")
+          +pricing-card(24, featureList.best, "Best Value", "Interdum et malesuada fames ac ante ipsum primis in faucibus. ", "value")
+        .wow.fadeInUpShort.item(data-wow-offset="-10" data-wow-delay="0.8s" data-wow-duration="0.4s")
+          +pricing-card(54, featureList.pro, "Pro", "Interdum et malesuada fames ac ante ipsum primis in faucibus. ")
+        .wow.fadeInUpShort.item(data-wow-offset="-10" data-wow-delay="1s" data-wow-duration="0.4s")
+          +pricing-card(99, featureList.enterprise, "Enterprise", "Interdum et malesuada fames ac ante ipsum primis in faucibus. ")

@@ -1,0 +1,19 @@
+extends ../layouts/app.pug
+
+block variables
+  - var pageTitle = " Blank Page"
+  
+block content
+  div
+    #home
+    .main-wrap
+      include ../components/header/header.pug
+      +header(true)
+      .container-general.py-10.py-sm-4
+        section.space-top.space-bottom
+          h2.display-3.text-center.mb-4 #{$t.common.title}
+          h4.display-1.text-center #{$t.common.subtitle}
+      section.space-top
+        include ../components/footer/footer.pug
+        +footer(true)
+      include ../components/notification.pug

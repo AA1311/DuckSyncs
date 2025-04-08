@@ -1,0 +1,70 @@
+extends ../layouts/app.pug
+
+block variables
+  - var pageTitle = " Home Page"
+block content
+  div
+    #home
+    .main-wrap
+      include ../components/header/header.pug
+      // ##### HEADER #####
+      +header(false)
+      // ##### END HEADER #####
+
+      main.container-wrap
+        // ##### BANNER #####
+        section#banner
+          include ../components/banner.pug
+        // ##### END BANNER #####
+
+        // ##### LOGO LIST #####
+        section#logo_list
+          include ../components/company-logo.pug
+        // ##### END LOGO LIST #####
+        
+        // ##### COUNTER #####
+        section.space-top-short
+          include ../components/counter.pug
+        // ##### END COUNTER #####
+
+        // ##### FEATURE #####
+        section#feature.space-top-feature
+          include ../components/feature.pug
+        // ##### END FEATURE #####
+
+        // ##### TESTIMONIAL #####
+        section#testimonials.space-bottom-testi
+          include ../components/testimonials.pug
+        // ##### END TESTIMONIAL #####
+
+        // ##### PRICING PLANN #####
+        section#pricing.space-top
+          include ../components/pricing-plan.pug
+        // ##### END PRICING PLANN #####
+
+        // ##### FAQ #####
+        section#faq.space-top-short
+          include ../components/faq.pug
+        // ##### END FAQ #####
+
+        // ##### NEWS AND EVENT #####
+        section#news.space-top-short
+          include ../components/news-event.pug
+        // ##### END NEWS AND EVENT #####
+
+      // ##### fOOTER #####
+      #footer
+        include ../components/footer/footer-with-deco.pug
+      // ##### END fOOTER #####
+
+      // ##### PAGE NAV #####
+      .hidden-md-down
+        include ../components/page-nav.pug
+      // ##### END PAGE NAV #####
+
+      // ##### NOTIFICATION #####
+      .hidden-md-down
+        include ../components/notification.pug
+      // ##### END NOTIFICATION #####
+        
+
