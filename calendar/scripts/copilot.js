@@ -1,4 +1,7 @@
-const BACKEND_URL = "https://calendar-copilot-backend-sankalpkhira-c2dcbcfvf3gdcrad.eastus2-01.azurewebsites.net"; // Update to deployed link later
+const BACKEND_URL = "https://calendar-copilot-backend-sankalpkhira-c2dcbcfvf3gdcrad.eastus2-01.azurewebsites.net";
+
+// Global variable to store the conversation thread id
+let currentThreadId = null;
 
 export function toggleCopilot() {
   const el = document.getElementById("copilot-container");
@@ -15,15 +18,20 @@ export async function sendToCopilot() {
   input.value = "";
 
   try {
+    // Include the currentThreadId in the request to persist the conversation thread
     const res = await fetch(`${BACKEND_URL}/chat`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ message: text })
+      body: JSON.stringify({ message: text, threadId: currentThreadId })
     });
 
     const data = await res.json();
 
-    // Updated condition for assistant response
+    // Update the thread id if returned from the backend
+    if (data.threadId) {
+      currentThreadId = data.threadId;
+    }
+
     if (data.response) {
       messages.innerHTML += `<div class="assistant">🤖 ${data.response}</div>`;
     } else {
@@ -35,7 +43,58 @@ export async function sendToCopilot() {
     }
   } catch (err) {
     messages.innerHTML += `<div class="assistant error">❌ Error: ${err.message}</div>`;
+    console.error("Error sending chat message:", err);
   }
 
+  messages.scrollTop = messages.scrollHeight;
+}
+
+export async function handleFileUpload(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+  const messages = document.getElementById("copilot-messages");
+
+  messages.innerHTML += `<div class="user">🧑‍💻 Uploaded file: ${file.name}</div>`;
+  
+  if (file.type !== "application/pdf") {
+    messages.innerHTML += `<div class="assistant error">🤖 Please upload a valid PDF file.</div>`;
+    return;
+  }
+  
+  const formData = new FormData();
+  formData.append("file", file);
+
+  try {
+    const res = await fetch(`${BACKEND_URL}/upload`, {
+      method: "POST",
+      body: formData
+    });
+    
+    // Log raw response for debugging purposes
+    const rawResponse = await res.text();
+    console.log("Raw upload response:", rawResponse);
+    
+    let data;
+    try {
+      data = JSON.parse(rawResponse);
+    } catch (e) {
+      throw new Error("Backend did not return valid JSON.");
+    }
+    
+    if (data.message) {
+      messages.innerHTML += `<div class="assistant">🤖 ${data.message}</div>`;
+    } else {
+      messages.innerHTML += `<div class="assistant error">🤖 No response received for PDF upload.</div>`;
+    }
+    
+    // If you prefer to manually add the events later, you can comment this out:
+    if (data.events) {
+      document.dispatchEvent(new CustomEvent("copilot-events", { detail: data.events }));
+    }
+  } catch (err) {
+    messages.innerHTML += `<div class="assistant error">❌ Error: ${err.message}</div>`;
+    console.error("Error during PDF upload:", err);
+  }
+  
   messages.scrollTop = messages.scrollHeight;
 }
