@@ -2,7 +2,6 @@ import { validateEvent, generateEventId } from "./event.js";
 
 export function initEventForm(toaster) {
   const formElement = document.querySelector("[data-event-form]");
-
   let mode = "create";
 
   formElement.addEventListener("submit", (event) => {
@@ -63,14 +62,16 @@ function fillFormWithDate(formElement, date, startTime, endTime) {
 function fillFormWithEvent(formElement, event) {
   const idInputElement = formElement.querySelector("#id");
   const titleInputElement = formElement.querySelector("#title");
+  const courseInputElement = formElement.querySelector("#Course"); // Add Course
   const dateInputElement = formElement.querySelector("#date");
   const startTimeSelectElement = formElement.querySelector("#start-time");
   const endTimeSelectElement = formElement.querySelector("#end-time");
   const colorInputElement = formElement.querySelector(`[value='${event.color}']`);
 
   idInputElement.value = event.id;
-  console.log("Set hidden input #id to:", idInputElement.value); // Debug
+  console.log("Set hidden input #id to:", idInputElement.value);
   titleInputElement.value = event.title;
+  courseInputElement.value = event.Course || ""; // Populate Course field
   dateInputElement.value = event.date.toISOString().substr(0, 10);
   startTimeSelectElement.value = event.startTime;
   endTimeSelectElement.value = event.endTime;
@@ -81,14 +82,16 @@ function formIntoEvent(formElement) {
   const formData = new FormData(formElement);
   const id = formData.get("id");
   const title = formData.get("title");
+  const Course = formData.get("Course"); // Add Course
   const date = formData.get("date");
   const startTime = formData.get("start-time");
   const endTime = formData.get("end-time");
   const color = formData.get("color");
 
   const event = {
-    id: id || null, // Keep as string or null for new events
+    id: id || null,
     title,
+    Course, // Include Course in the event object
     date: new Date(date),
     startTime: Number.parseInt(startTime, 10),
     endTime: Number.parseInt(endTime, 10),

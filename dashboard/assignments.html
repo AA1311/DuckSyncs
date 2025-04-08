@@ -1,185 +1,204 @@
 <!DOCTYPE html>
-   <html lang="en">
-   <head>
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-      <!--=============== REMIXICONS ===============-->
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.2.0/remixicon.css">
-
-      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-
-      <!--=============== CSS ===============-->
-      <link rel="stylesheet" href="css/styles.css">
-
-      <title>DuckSyncs</title>
-   </head>
-   <body>
-      <!--=============== HEADER ===============-->
-      <header class="header" id="header">
-         <div class="header__container">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.2.0/remixicon.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <title>DuckSyncs - Assignments</title>
+</head>
+<body>
+    <!--=============== HEADER ===============-->
+    <header class="header" id="header">
+        <div class="header__container">
             <a href="../calendar/calendar.html" class="header__logo">
-               <i class="ri-cloud-fill"></i>
-               <span></span>
+                <i class="ri-cloud-fill"></i>
+                <span></span>
             </a>
-            
             <button class="header__toggle" id="header-toggle">
-               <i class="ri-menu-line"></i>
+                <i class="ri-menu-line"></i>
             </button>
-         </div>
-      </header>
+        </div>
+    </header>
 
-      <!--=============== SIDEBAR ===============-->
-      <nav class="sidebar" id="sidebar">
-         <div class="sidebar__container">
+    <!--=============== SIDEBAR ===============-->
+    <nav class="sidebar" id="sidebar">
+        <div class="sidebar__container">
             <div class="sidebar__user">
-               <div class="sidebar__img">
-                  <img src="" id="userPhoto" alt="User Photo">
-               </div>
-   
-               <div class="sidebar__info">
-                  <h3 id="user-name"></h3>
-                  <span id="user-email"></span>
-               </div>
+                <div class="sidebar__img">
+                    <img src="" id="userPhoto" alt="User Photo">
+                </div>
+                <div class="sidebar__info">
+                    <h3 id="user-name"></h3>
+                    <span id="user-email"></span>
+                </div>
             </div>
-
             <div class="sidebar__content">
-               <div>
-                  <h3 class="sidebar__title">MANAGE</h3>
-
-                  <div class="sidebar__list">
-
-                     <a href="../calendar/calendar.html" class="sidebar__link">
-                        <i class="ri-calendar-fill"></i>
-                        <span>Calendar</span>
-                     </a>
-
-                     <a href="./assignments.html" class="sidebar__link">
-                        <i class="ri-arrow-up-down-line"></i>
-                        <span>Assignments</span>
-                     </a>
-
-                  </div>
-               </div>
-
-               <div>
-                  <h3 class="sidebar__title">SETTINGS</h3>
-
-                  <div class="sidebar__list">
-                     <a href="#" class="sidebar__link">
-                        <i class="ri-settings-3-fill"></i>
-                        <span>Settings</span>
-                     </a>
-                  </div>
-               </div>
+                <div>
+                    <h3 class="sidebar__title">MANAGE</h3>
+                    <div class="sidebar__list">
+                        <a href="../calendar/calendar.html" class="sidebar__link">
+                            <i class="ri-calendar-fill"></i>
+                            <span>Calendar</span>
+                        </a>
+                        <a href="./assignments.html" class="sidebar__link">
+                            <i class="ri-arrow-up-down-line"></i>
+                            <span>Assignments</span>
+                        </a>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="sidebar__title">SETTINGS</h3>
+                    <div class="sidebar__list">
+                        <a href="#" class="sidebar__link">
+                            <i class="ri-settings-3-fill"></i>
+                            <span>Settings</span>
+                        </a>
+                    </div>
+                </div>
             </div>
-
             <div class="sidebar__actions">
-               <!-- <button>
-                  <i class="ri-moon-clear-fill sidebar__link sidebar__theme" id="theme-button">
-                     <span>Theme</span>
-                  </i>
-               </button> -->
-
-               <button class="sidebar__link" id ="logout-button">
-                  <i class="ri-logout-box-r-fill"></i>
-                  <span>Log Out</span>
-               </button>
+                <button class="sidebar__link" id="logout-button">
+                    <i class="ri-logout-box-r-fill"></i>
+                    <span>Log Out</span>
+                </button>
             </div>
-         </div>
-      </nav>
+        </div>
+    </nav>
 
-      <!--=============== MAIN ===============-->
-      <main class="main-dashboard container" id="main">
-         <h1>Assignments</h1>
-         <!--=============== Assignments ===============-->
+    <!--=============== MAIN ===============-->
+    <main class="main-dashboard container" id="main">
+        <h1>Assignments</h1>
         <div class="table-container">
-         <table style=" width: 100%;" class="styled-table">
-             <thead>
-                 <tr>
-                     <th ></th>
-                     <th>Course</th>
-                     <th>Task Name</th>
-                     <th>Due Date</th>
-                     <th>Task Type</th>
-                 </tr>
-             </thead>
-             <tbody>
-                 <tr>
-                  <td class="checkbox-column"><input type="checkbox" id="task4"></td>
-                 </tr>
-                 <tr>
-                  <td class="checkbox-column"><input type="checkbox" id="task4"></td>
-                 </tr>
-                 <tr>
-                  <td class="checkbox-column"><input type="checkbox" id="task4"></td>
-                  
-                 </tr>
-             </tbody>
-         </table>
-     </div>
+            <table style="width: 100%;" class="styled-table">
+                <thead>
+                    <tr>
+                        <th>Status</th>
+                        <th>Course</th>
+                        <th>Task Title</th>
+                        <th>Due Date</th>
+                        <th>Task Type</th>
+                    </tr>
+                </thead>
+                <tbody id="assignments-body">
+                    <!-- Rows will be dynamically added here -->
+                </tbody>
+            </table>
+        </div>
+    </main>
 
- </main>
-     
-      <!--=============== MAIN JS ===============-->
+    <!-- Firebase and other scripts -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.11/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.11/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.11/firebase-firestore-compat.js"></script>
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
-
-
-<script src="js/main.js"></script>
-
-<script src="https://www.gstatic.com/firebasejs/9.6.11/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.6.11/firebase-auth-compat.js"></script>
-
-<script>
-   const firebaseConfig = {
-       apiKey: "AIzaSyCGByO7UTykWwangv1jWWcguD7rqOTANb4",
-       authDomain: "login-ccfc8.firebaseapp.com",
-       projectId: "login-ccfc8",
-       storageBucket: "login-ccfc8.firebasestorage.app",
-       messagingSenderId: "916099550852",
-       appId: "1:916099550852:web:2f06cde9d6e1f842943cd1",
-       measurementId: "G-JZ8JY11W4Z"
-   };
-
-   firebase.initializeApp(firebaseConfig);
-   const auth = firebase.auth();
-
-   // On page load, check if user is authenticated
-   auth.onAuthStateChanged(user => {
-       if (user) {
-           // If logged in, use data from localStorage
-           const userName = localStorage.getItem('userName');
-           const userEmail = localStorage.getItem('userEmail');
-           const userPhoto = localStorage.getItem('userPhoto') || '../images/profileDefault.jpg';
-
-
-           // Display user info
-           document.getElementById('user-name').textContent = userName;
-           document.getElementById('user-email').textContent = userEmail;
-           document.getElementById('userPhoto').src = userPhoto;
-           
-
-       } else {
-           // If not signed in, redirect to login page
-           window.location.href = "../index.html";  // Redirect to login page
-       }
-   });
-
-   // Logout functionality
-   document.getElementById('logout-button').addEventListener('click', function (e) {
-       e.preventDefault();
-       auth.signOut().then(() => {
-           // Redirect back to login page after logout
-           localStorage.removeItem('userName');
-           localStorage.removeItem('userEmail');
-           window.location.href = "../index.html";  // Redirect to login page
-       });
-   });
-</script>
-
-
-
-   </body>
+    <script>
+      // Firebase configuration
+      const firebaseConfig = {
+        apiKey: "AIzaSyCGByO7UTykWwangv1jWWcguD7rqOTANb4",
+        authDomain: "login-ccfc8.firebaseapp.com",
+        projectId: "login-ccfc8",
+        storageBucket: "login-ccfc8.firebasestorage.app",
+        messagingSenderId: "916099550852",
+        appId: "1:916099550852:web:2f06cde9d6e1f842943cd1",
+        measurementId: "G-JZ8JY11W4Z"
+      };
+    
+      firebase.initializeApp(firebaseConfig);
+      const auth = firebase.auth();
+      const db = firebase.firestore();
+    
+      auth.onAuthStateChanged(user => {
+        if (user) {
+          const userName = localStorage.getItem('userName') || "Unknown";
+          const userEmail = localStorage.getItem('userEmail') || user.email;
+          const userPhoto = localStorage.getItem('userPhoto') || '../images/profileDefault.jpg';
+    
+          document.getElementById('user-name').textContent = userName;
+          document.getElementById('user-email').textContent = userEmail;
+          document.getElementById('userPhoto').src = userPhoto;
+    
+          loadAssignments(user.uid);
+        } else {
+          window.location.href = "../index.html";
+        }
+      });
+    
+      document.getElementById("logout-button").addEventListener('click', function (e) {
+        e.preventDefault();
+        auth.signOut().then(() => {
+          localStorage.clear();
+          window.location.href = "../index.html";
+        });
+      });
+    
+      function loadAssignments(uid) {
+        const assignmentsBody = document.getElementById('assignments-body');
+        assignmentsBody.innerHTML = '';
+    
+        db.collection("users").doc(uid).collection("events")
+          .onSnapshot((querySnapshot) => { // Changed to real-time listener
+            assignmentsBody.innerHTML = ''; // Clear on each update
+            if (querySnapshot.empty) {
+              assignmentsBody.innerHTML = '<tr><td colspan="5">No assignments found.</td></tr>';
+              return;
+            }
+    
+            querySnapshot.forEach((doc) => {
+              const event = doc.data();
+              const row = document.createElement('tr');
+    
+              const statusCell = document.createElement('td');
+              const statusSelect = document.createElement('select');
+              statusSelect.classList.add('form-control');
+              ['Not Started Yet', 'In Progress', 'Done'].forEach(status => {
+                const option = document.createElement('option');
+                option.value = status;
+                option.text = status;
+                statusSelect.appendChild(option);
+              });
+              statusCell.appendChild(statusSelect);
+              row.appendChild(statusCell);
+    
+              const courseCell = document.createElement('td');
+              courseCell.textContent = event.Course || 'N/A';
+              row.appendChild(courseCell);
+    
+              const titleCell = document.createElement('td');
+              titleCell.textContent = event.title || 'N/A';
+              row.appendChild(titleCell);
+    
+              const dateCell = document.createElement('td');
+              let formattedDate = 'N/A';
+              if (event.date) {
+                const eventDate = new Date(event.date);
+                formattedDate = isNaN(eventDate.getTime()) ? 'Invalid Date' : eventDate.toLocaleDateString();
+              }
+              dateCell.textContent = formattedDate;
+              row.appendChild(dateCell);
+    
+              const typeCell = document.createElement('td');
+              const typeSelect = document.createElement('select');
+              typeSelect.classList.add('form-control');
+              ['Homework', 'Project', 'Presentation', 'Quiz', 'Exam'].forEach(type => {
+                const option = document.createElement('option');
+                option.value = type;
+                option.text = type;
+                typeSelect.appendChild(option);
+              });
+              typeCell.appendChild(typeSelect);
+              row.appendChild(typeCell);
+    
+              assignmentsBody.appendChild(row);
+            });
+          }, (error) => {
+            console.error("Error loading assignments:", error);
+            assignmentsBody.innerHTML = '<tr><td colspan="5">Error loading assignments.</td></tr>';
+          });
+      }
+    </script>
+</body>
 </html>

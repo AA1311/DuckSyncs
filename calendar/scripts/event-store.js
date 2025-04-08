@@ -12,7 +12,7 @@ export function initEventStore(userId) {
       ...event,
       date: new Date(event.date),
     }));
-    cachedEvents = newEvents; // Replace entire cache with Firestore data
+    cachedEvents = newEvents;
     console.log("Cached events updated from Firestore:", cachedEvents);
   });
 
@@ -22,11 +22,11 @@ export function initEventStore(userId) {
     eventDate.setHours(0, 0, 0, 0);
     const safeEvent = {
       title: createdEvent.title,
-      date: eventDate.toISOString().split('T')[0], // e.g., '2025-04-17'
+      Course: createdEvent.Course, // Add Course
+      date: eventDate.toISOString().split('T')[0],
       startTime: createdEvent.startTime,
       endTime: createdEvent.endTime,
       color: createdEvent.color
-      // Exclude id field
     };
   
     console.log("Event creation triggered with Data:", safeEvent);
@@ -35,7 +35,8 @@ export function initEventStore(userId) {
       .add(safeEvent)
       .then((docRef) => {
         console.log("Event saved to Firestore with ID:", docRef.id, "Data:", safeEvent);
-        // Optionally, update local cache with the correct ID here
+        cachedEvents.push({ id: docRef.id, ...safeEvent, date: eventDate });
+        document.dispatchEvent(new CustomEvent("events-change", { bubbles: true }));
       })
       .catch((error) => {
         console.error("Error saving event:", error);
@@ -62,17 +63,19 @@ export function initEventStore(userId) {
     eventDate.setHours(0, 0, 0, 0);
     const safeEvent = {
       title: editedEvent.title,
+      Course: editedEvent.Course, // Add Course
       date: eventDate.toISOString(),
       startTime: editedEvent.startTime,
       endTime: editedEvent.endTime,
       color: editedEvent.color
-      // Exclude id field
     };
     console.log("Editing event:", editedEvent);
     if (editedEvent.id) {
       userEventsRef.doc(editedEvent.id).set(safeEvent)
         .then(() => {
           console.log("Event edited successfully");
+          cachedEvents = cachedEvents.map(e => e.id === editedEvent.id ? { ...safeEvent, id: editedEvent.id, date: eventDate } : e);
+          document.dispatchEvent(new CustomEvent("events-change", { bubbles: true }));
         })
         .catch((error) => console.error("Error editing event:", error));
     } else {
@@ -84,7 +87,7 @@ export function initEventStore(userId) {
     getEventsByDate(date) {
       return new Promise((resolve) => {
         const queryDate = new Date(date);
-        queryDate.setHours(0, 0, 0, 0); // Ensure query date is midnight local
+        queryDate.setHours(0, 0, 0, 0);
         console.log("Fetching events for date:", queryDate.toString(), "ISO:", queryDate.toISOString());
         const filteredEvents = cachedEvents.filter((event) =>
           isTheSameDay(event.date, queryDate)
