@@ -743,25 +743,17 @@
   auth.onAuthStateChanged((user) => {
     if (user) {
       console.log("User logged in:", { uid: user.uid, email: user.email });
-
       const userRef = db.collection("users").doc(user.uid);
-      userRef.get().then((doc) => {
-        if (!doc.exists) {
-          console.log("Creating user document for UID:", user.uid);
-          userRef
-            .set({
-              name: user.displayName || "Unknown",
-              email: user.email,
-              photoURL: user.photoURL || "../images/profileDefault.jpg",
-              createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-            })
-            .then(() => console.log("User document created:", user.uid))
-            .catch((error) => console.error("Error creating user document:", error));
-        } else {
-          console.log("User document already exists:", doc.data());
-        }
-      }).catch((error) => console.error("Error checking user document:", error));
-
+      userRef.set({
+        name: user.displayName || "Unknown",
+        email: user.email,
+        photoURL: user.photoURL || "../images/profileDefault.jpg",
+        createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+        lastLogin: firebase.firestore.FieldValue.serverTimestamp(),
+      }, { merge: true })
+      .then(() => console.log("User document saved:", user.uid))
+      .catch((error) => console.error("Error saving user document:", error));
+      
       localStorage.setItem("userName", user.displayName || "Unknown");
       localStorage.setItem("userEmail", user.email);
       localStorage.setItem("userPhoto", user.photoURL || "../images/profileDefault.jpg");
@@ -785,41 +777,45 @@
   });
 
   function loadCalendarEvents(uid) {
-    console.log("Setting up Firestore listener for UID:", uid);
-    db.collection("users")
-      .doc(uid)
-      .collection("events")
-      .onSnapshot(
-        (snapshot) => {
-          const events = [];
-          snapshot.forEach((doc) => {
-            const eventData = doc.data();
-            events.push({
-              id: doc.id,
-              ...eventData,
-              date: new Date(eventData.date),
-            });
-          });
-          console.log("Events loaded from Firestore for UID", uid, ":", events);
-          document.dispatchEvent(
-            new CustomEvent("events-loaded", {
-              detail: { events },
-              bubbles: true,
-            })
+  console.log("Loading events for UID:", uid);
+  db.collection("users")
+    .doc(uid)
+    .collection("events")
+    .onSnapshot(
+      (snapshot) => {
+        const events = [];
+        snapshot.forEach((doc) => {
+          const eventData = doc.data();
+          // Parse date string (e.g., "2025-04-14") into Date object
+          const eventDate = new Date(eventData.date);
+          console.log(
+            "Firestore event ID:", doc.id,
+            "Raw date:", eventData.date,
+            "Parsed date:", eventDate.toString()
           );
-        },
-        (error) => {
-          console.error("Error loading events for UID", uid, ":", error);
-        }
-      );
-  }
+          events.push({
+            id: doc.id,
+            ...eventData,
+            date: eventDate,
+          });
+        });
+        console.log("Events from Firestore:", events);
+        document.dispatchEvent(
+          new CustomEvent("events-loaded", {
+            detail: { events },
+            bubbles: true,
+          })
+        );
+      },
+      (error) => {
+        console.error("Error loading events:", error);
+      }
+    );
+}
 </script>
 
-<!-- ✅ Copilot DOM elements go here -->
-<!-- Floating Copilot Chat Icon -->
+<!-- Copilot DOM elements unchanged -->
 <div id="copilot-icon" onclick="toggleCopilot()">💬</div>
-
-<!-- Copilot Chat Box -->
 <div id="copilot-container" class="hidden">
   <div id="copilot-header">🤖 Calendar Copilot</div>
   <div id="copilot-messages"></div>
@@ -829,7 +825,6 @@
   </div>
 </div>
 
-<!-- ✅ Now your module script can safely bind to the DOM above -->
 <script type="module">
   import { toggleCopilot, sendToCopilot } from './scripts/copilot.js';
   window.toggleCopilot = toggleCopilot;

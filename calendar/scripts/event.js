@@ -31,6 +31,39 @@ export function initDynamicEvent(parent, event, dynamicStyles) {
   parent.appendChild(eventElement);
 }
 
+// function initEvent(event) {
+//   const eventContent = eventTemplateElement.content.cloneNode(true);
+//   const eventElement = eventContent.querySelector("[data-event]");
+//   const eventTitleElement = eventElement.querySelector("[data-event-title]");
+//   const eventStartTimeElement = eventElement.querySelector("[data-event-start-time]");
+//   const eventEndTimeElement = eventElement.querySelector("[data-event-end-time]");
+
+//   const startDate = eventTimeToDate(event, event.startTime);
+//   const endDate = eventTimeToDate(event, event.endTime);
+
+//   eventElement.style.setProperty("--event-color", event.color);
+//   eventTitleElement.textContent = event.title;
+//   eventStartTimeElement.textContent = dateFormatter.format(startDate);
+//   eventEndTimeElement.textContent = dateFormatter.format(endDate);
+
+//   // eventElement.addEventListener("click", () => {
+//   //   eventElement.dispatchEvent(new CustomEvent("event-click", {
+//   //     detail: {
+//   //       event,
+//   //     },
+//   //     bubbles: true
+//   //   }));
+//   // });
+//   eventElement.addEventListener("click", () => {
+//     eventElement.dispatchEvent(new CustomEvent("event-click", {
+//       detail: { event },
+//       bubbles: true
+//     }));
+//   });
+
+//   return eventElement;
+// }
+
 function initEvent(event) {
   const eventContent = eventTemplateElement.content.cloneNode(true);
   const eventElement = eventContent.querySelector("[data-event]");
@@ -47,10 +80,9 @@ function initEvent(event) {
   eventEndTimeElement.textContent = dateFormatter.format(endDate);
 
   eventElement.addEventListener("click", () => {
+    console.log("Dispatching event-click with event:", event);
     eventElement.dispatchEvent(new CustomEvent("event-click", {
-      detail: {
-        event,
-      },
+      detail: { event: { ...event } }, // Fresh copy with ID
       bubbles: true
     }));
   });
