@@ -97,9 +97,9 @@
          <table style=" width: 100%;" class="styled-table">
              <thead>
                  <tr>
-                     <th ></th>
+                     <th>Status</th>
                      <th>Course</th>
-                     <th>Task Name</th>
+                     <th>Task Title</th>
                      <th>Due Date</th>
                      <th>Task Type</th>
                  </tr>
@@ -177,9 +177,44 @@
            window.location.href = "../index.html";  // Redirect to login page
        });
    });
+   $(document).ready(function () {
+      $('.styled-table tbody tr').each(function () {
+        const cells = $(this).children('td');
+
+        // Status dropdown
+        const statusSelect = $('<select class="form-control"></select>');
+        ['Not Started Yet', 'In Progress', 'Done'].forEach(status => {
+          statusSelect.append($('<option></option>').val(status).text(status));
+        });
+        cells.eq(0).html(statusSelect);
+
+        // Task Type dropdown
+        const taskTypeSelect = $('<select class="form-control"></select>');
+        ['Homework', 'Project', 'Presentation', 'Quiz', 'Exam'].forEach(type => {
+          taskTypeSelect.append($('<option></option>').val(type).text(type));
+        });
+        cells.eq(4).html(taskTypeSelect);
+      });
+
+      // Sort rows by Due Date
+      const rows = $('.styled-table tbody tr').get();
+      rows.sort(function (a, b) {
+        const dateA = new Date($(a).children('td').eq(3).text().trim());
+        const dateB = new Date($(b).children('td').eq(3).text().trim());
+        return dateA - dateB;
+      });
+      $.each(rows, function (_, row) {
+        $('.styled-table tbody').append(row);
+      });
+    });
 </script>
 
 
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 2ecf923 (ELI-1)
    </body>
 </html>

@@ -223,7 +223,17 @@
             </div>
 
             <div class="form__field">
+<<<<<<< HEAD
               <label class="form__label" for="date">Date</label>
+=======
+              <label class="form__label" for="Course">Course</label>
+              <input class="input input--fill" id="Course" name="Course" type="text" placeholder="My Course"
+                required autofocus />
+            </div>
+
+            <div class="form__field">
+              <label class="form__label" for="date">Due Date</label>
+>>>>>>> 2ecf923 (ELI-1)
               <input class="input input--fill" id="date" name="date" type="date" required />
             </div>
 
@@ -344,11 +354,15 @@
                     <option value="1440">12:00 AM</option>
                   </select>
 
+<<<<<<< HEAD
                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                     class="select__icon">
                     <path d="m6 9 6 6 6-6" />
                   </svg>
+=======
+                
+>>>>>>> 2ecf923 (ELI-1)
                 </div>
               </div>
             </div>
@@ -362,6 +376,21 @@
                     <div class="color-select__color-inner"></div>
                   </div>
                 </label>
+<<<<<<< HEAD
+=======
+                <label class="color-select__item" style="--color-select-item-color: #e879f9">
+                  <input class="color-select__input" type="radio" name="color" value="#e879f9" checked />
+                  <div class="color-select__color">
+                    <div class="color-select__color-inner"></div>
+                  </div>
+                </label>
+                <label class="color-select__item" style="--color-select-item-color: #f59e0b">
+                  <input class="color-select__input" type="radio" name="color" value="#f59e0b" checked />
+                  <div class="color-select__color">
+                    <div class="color-select__color-inner"></div>
+                  </div>
+                </label>
+>>>>>>> 2ecf923 (ELI-1)
                 <label class="color-select__item" style="--color-select-item-color: #ea580c">
                   <input class="color-select__input" type="radio" name="color" value="#ea580c" />
                   <div class="color-select__color">
@@ -818,9 +847,12 @@
 <!-- Floating Copilot Chat Icon -->
 <div id="copilot-icon" onclick="toggleCopilot()">💬</div>
 
+<<<<<<< HEAD
 <!-- Floating Copilot Chat Icon -->
 <div id="copilot-icon" onclick="toggleCopilot()">💬</div>
 
+=======
+>>>>>>> 2ecf923 (ELI-1)
 <!-- Copilot Chat Box -->
 <div id="copilot-container" class="hidden">
   <div id="copilot-header">🤖 Calendar Copilot</div>
@@ -828,6 +860,7 @@
   <div id="copilot-input-area">
     <input type="text" id="copilot-input" placeholder="Ask about your calendar..." />
     <button onclick="sendToCopilot()">➤</button>
+<<<<<<< HEAD
     <!-- PDF Upload Button: Label triggers hidden file input -->
     <label id="file-upload-btn" for="file-upload">📎</label>
     <input type="file" id="file-upload" accept=".pdf" onchange="handleFileUpload(event)" />
@@ -844,5 +877,17 @@
 
 <script src="./scripts/index.js" type="module"></script>
 
+=======
+  </div>
+</div>
+
+<!-- ✅ Now your module script can safely bind to the DOM above -->
+<script type="module">
+  import { toggleCopilot, sendToCopilot } from './scripts/copilot.js';
+  window.toggleCopilot = toggleCopilot;
+  window.sendToCopilot = sendToCopilot;
+</script>
+
+>>>>>>> 2ecf923 (ELI-1)
 </body>
 </html>
